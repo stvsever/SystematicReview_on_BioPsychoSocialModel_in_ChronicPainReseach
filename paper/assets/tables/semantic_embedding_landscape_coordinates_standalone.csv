@@ -1,157 +1,157 @@
 node_type,label,record_id,year,review_type,dominant_domain,dominant_loading,tsne_x,tsne_y,pca_x,pca_y,parent_domain
-record,pubmed_10908542,pubmed_10908542,2000.0,systematic review,biological,0.3359000086784363,-6.847834,-7.872124,14.272514,-17.97799,biological
-record,pubmed_19160209,pubmed_19160209,2009.0,systematic review,biological,0.33640000224113464,-6.8468266,-7.886655,14.499314,-18.029306,biological
-record,pubmed_40170347,pubmed_40170347,2025.0,scoping or mapping review,psychological,0.3483999967575073,-2.4325638,-5.162153,9.995575,0.1779897,psychological
-record,pubmed_28371175,pubmed_28371175,2017.0,narrative or expert review,biological,0.34769999980926514,-5.8084183,-5.3870516,9.784441,-2.7704737,biological
-record,pubmed_35434749,pubmed_35434749,2022.0,narrative or expert review,biological,0.357699990272522,1.1068019,-3.7418325,7.6191764,13.574433,biological
-record,pubmed_7866373,pubmed_7866373,1994.0,narrative or expert review,psychological,0.33730000257492065,-4.273289,-9.923155,5.9648476,-2.4105008,psychological
-record,pubmed_21373784,pubmed_21373784,2011.0,narrative or expert review,social,0.3384000062942505,-9.830281,-7.582196,1.9122818,-12.098808,social
-record,pubmed_38063895,pubmed_38063895,2024.0,narrative or expert review,biological,0.3458000123500824,0.80089426,-7.1932755,7.4970546,5.346815,biological
-record,pubmed_29460009,pubmed_29460009,2018.0,systematic review,biological,0.34279999136924744,-3.5000448,-7.569947,17.107637,-8.885192,biological
-record,pubmed_20425201,pubmed_20425201,2010.0,narrative or expert review,biological,0.3537999987602234,-0.12475333,-4.848489,4.9537225,17.012268,biological
-record,pubmed_22102156,pubmed_22102156,2012.0,narrative or expert review,biological,0.34850001335144043,-5.0465384,4.298348,0.095104985,-0.7087376,biological
-record,pubmed_36527589,pubmed_36527589,2023.0,narrative or expert review,psychological,0.33820000290870667,-2.0266058,-1.2320374,6.6240654,3.0340912,psychological
-record,pubmed_28752491,pubmed_28752491,2017.0,systematic review,psychological,0.3499999940395355,-0.7420682,-0.6766468,6.5142574,1.2409317,psychological
-record,pubmed_33563380,pubmed_33563380,2021.0,narrative or expert review,biological,0.35989999771118164,-0.85729784,-6.0802736,8.97753,11.710369,biological
-record,pubmed_17350550,pubmed_17350550,2007.0,narrative or expert review,biological,0.3495999872684479,-5.2680597,-4.1832547,8.857109,2.9758017,biological
-record,pubmed_23218435,pubmed_23218435,2012.0,narrative or expert review,social,0.35019999742507935,-8.271127,-8.17524,12.510391,-16.623087,social
-record,pubmed_26096090,pubmed_26096090,2014.0,narrative or expert review,psychological,0.349700003862381,-4.179624,-2.8980203,2.703876,9.9344635,psychological
-record,pubmed_41271285,pubmed_41271285,2026.0,narrative or expert review,psychological,0.3474000096321106,-6.2653747,-0.949748,6.517678,7.0220466,psychological
-record,pubmed_30594766,pubmed_30594766,2019.0,narrative or expert review,biological,0.34950000047683716,-3.9173453,-8.775625,11.841175,-0.4728981,biological
-record,pubmed_29729787,pubmed_29729787,2018.0,narrative or expert review,biological,0.34279999136924744,-8.967587,-4.42212,1.9859974,4.7685823,biological
-record,WOS:000453643300005,WOS:000453643300005,,scoping or mapping review,social,0.33809998631477356,-2.6497536,-9.826875,12.089761,-14.064741,social
-record,pubmed_27344405,pubmed_27344405,2016.0,narrative or expert review,psychological,0.3472000062465668,-3.530815,-2.0287383,2.3994608,9.468666,psychological
-record,pubmed_26614718,pubmed_26614718,2016.0,narrative or expert review,psychological,0.3456000089645386,-4.3364635,-1.616281,4.510181,6.3020105,psychological
-record,pubmed_26614715,pubmed_26614715,2016.0,narrative or expert review,biological,0.34850001335144043,-4.97526,-2.6886964,0.5608886,12.537692,biological
-record,pubmed_19289225,pubmed_19289225,2009.0,systematic review,biological,0.35010001063346863,-3.9558606,3.4706903,9.285236,1.2162317,biological
-record,pubmed_40675665,pubmed_40675665,2025.0,systematic review,biological,0.3709999918937683,0.26606348,-6.173861,4.3355813,16.125183,biological
-record,pubmed_27325001,pubmed_27325001,2016.0,systematic review,psychological,0.35370001196861267,-6.8995504,1.4704148,-3.1162517,11.108469,psychological
-record,pubmed_27246519,pubmed_27246519,2016.0,systematic review,psychological,0.34380000829696655,1.2857215,-2.4342139,0.8153888,5.5985794,psychological
-record,pubmed_24602442,pubmed_24602442,2014.0,systematic review,psychological,0.3440999984741211,-6.809566,-3.307984,2.753846,5.143465,psychological
-record,pubmed_28947182,pubmed_28947182,2018.0,systematic review,psychological,0.3443000018596649,-5.9712267,-0.59901714,7.0686183,8.241957,psychological
-record,pubmed_22814445,pubmed_22814445,2012.0,systematic review,biological,0.3555000126361847,-4.428108,-8.185682,13.739688,0.7402478,biological
-record,pubmed_1477890,pubmed_1477890,1992.0,narrative or expert review,biological,0.34119999408721924,-3.060176,-9.615262,9.430761,-8.053795,biological
-record,pubmed_12948346,pubmed_12948346,2003.0,narrative or expert review,psychological,0.34929999709129333,-4.403376,-0.071385995,4.103285,4.411926,psychological
-record,pubmed_17592957,pubmed_17592957,2007.0,narrative or expert review,biological,0.3490999937057495,-3.2325873,-0.95175076,7.4771147,9.293231,biological
-record,pubmed_18235536,pubmed_18235536,2008.0,narrative or expert review,psychological,0.3547999858856201,-4.4201064,-3.219288,5.3052745,10.042271,psychological
-record,pubmed_24113949,pubmed_24113949,2013.0,narrative or expert review,biological,0.3407999873161316,-8.053392,4.5514526,7.9981985,-1.68966,biological
-record,pubmed_11092802,pubmed_11092802,2000.0,narrative or expert review,biological,0.3431999981403351,-3.3129013,1.2062104,11.004562,-6.938372,biological
-record,pubmed_37575343,pubmed_37575343,2023.0,systematic review,psychological,0.3443000018596649,-9.3418,-1.6726896,6.2274714,5.9669523,psychological
-record,pubmed_32988440,pubmed_32988440,2020.0,narrative or expert review,biological,0.33489999175071716,-4.558952,-9.533805,13.516596,-7.367656,biological
-record,pubmed_27351769,pubmed_27351769,2016.0,narrative or expert review,biological,0.3458000123500824,-4.8720603,-5.683943,7.1159315,6.8090324,biological
-record,pubmed_35645164,pubmed_35645164,2023.0,narrative or expert review,biological,0.34209999442100525,-3.163247,1.1582266,12.263172,-7.0833325,biological
-record,pubmed_11762878,pubmed_11762878,2001.0,narrative or expert review,psychological,0.3402000069618225,-1.9548999,0.5458633,10.234934,-7.608232,psychological
-record,pubmed_33682560,pubmed_33682560,2021.0,systematic review,psychological,0.3492000102996826,-2.0180445,4.332629,13.293308,-2.4304276,psychological
-record,pubmed_36706441,pubmed_36706441,2023.0,narrative or expert review,psychological,0.3531999886035919,-6.4077787,-3.4548724,4.9220247,8.486204,psychological
-record,pubmed_16968689,pubmed_16968689,2006.0,narrative or expert review,social,0.3425000011920929,-8.309497,-8.393795,9.70725,-19.18535,social
-record,pubmed_40418249,pubmed_40418249,2025.0,systematic review,social,0.337799996137619,-8.096419,-6.885711,12.133733,-19.1867,social
-record,pubmed_10870733,pubmed_10870733,2000.0,narrative or expert review,psychological,0.34439998865127563,-5.146701,-1.7916836,1.7341992,12.702522,psychological
-record,pubmed_2181358,pubmed_2181358,1990.0,narrative or expert review,psychological,0.3447999954223633,-10.322976,0.026218273,6.260617,-1.6749179,psychological
-record,pubmed_30520741,pubmed_30520741,2019.0,narrative or expert review,psychological,0.3440000116825104,-3.7535276,-4.8623877,9.957094,9.077518,psychological
-record,pubmed_26889614,pubmed_26889614,2016.0,systematic review,psychological,0.3382999897003174,1.3643558,-0.32674366,5.9505115,-4.6207,psychological
-record,pubmed_29494401,pubmed_29494401,2018.0,narrative or expert review,biological,0.3637999892234802,-0.14596152,-4.9114947,6.462626,16.305159,biological
-record,pubmed_35467583,pubmed_35467583,2022.0,narrative or expert review,biological,0.34700000286102295,-9.115205,-1.7058234,9.715814,8.404579,biological
-record,pubmed_27023418,pubmed_27023418,2016.0,meta-analysis,biological,0.34610000252723694,2.8581784,-4.2774777,4.685317,6.2939878,biological
-record,pubmed_27902569,pubmed_27902569,2017.0,narrative or expert review,psychological,0.3467999994754791,-0.16565806,-3.0573394,2.2632945,9.91503,psychological
-record,pubmed_31977935,pubmed_31977935,2020.0,systematic review,psychological,0.3418999910354614,-5.203579,-6.4169474,14.607619,-8.834359,psychological
-record,pubmed_40101218,pubmed_40101218,2025.0,systematic review,psychological,0.34470000863075256,-3.0716143,-3.5740955,5.849672,-3.138532,psychological
-record,pubmed_32871946,pubmed_32871946,2020.0,meta-analysis,psychological,0.3483000099658966,-2.14191,-7.756077,13.433973,-9.225266,psychological
-record,pubmed_27496639,pubmed_27496639,2016.0,narrative or expert review,biological,0.34220001101493835,-9.152818,-4.599982,12.236731,-9.857841,biological
-record,pubmed_24080806,pubmed_24080806,2013.0,narrative or expert review,psychological,0.36480000615119934,-2.2890139,-1.6205188,4.238341,4.3074746,psychological
-record,pubmed_24690764,pubmed_24690764,2014.0,narrative or expert review,psychological,0.3463999927043915,-2.8077798,-0.8068573,9.961859,6.7258487,psychological
-record,pubmed_30893103,pubmed_30893103,2019.0,narrative or expert review,biological,0.3513999879360199,-1.5183524,-2.1242669,7.2892046,9.103717,biological
-record,pubmed_22406986,pubmed_22406986,2012.0,narrative or expert review,psychological,0.3529999852180481,-1.7598125,-2.2008631,8.834269,8.13579,psychological
-record,pubmed_23314014,pubmed_23314014,2013.0,narrative or expert review,psychological,0.3479999899864197,-3.966027,-4.58263,7.363116,10.462899,psychological
-record,pubmed_26148424,pubmed_26148424,2016.0,narrative or expert review,biological,0.3546999990940094,1.0383586,-7.558419,4.510357,9.802178,biological
-record,pubmed_41268985,pubmed_41268985,2025.0,scoping or mapping review,psychological,0.3619000017642975,-2.1350899,-4.11808,6.9402323,2.248952,psychological
-record,pubmed_41105043,pubmed_41105043,2025.0,narrative or expert review,biological,0.3617999851703644,0.20626111,-4.0848293,7.2197328,17.474133,biological
-record,pubmed_24261452,pubmed_24261452,2014.0,narrative or expert review,psychological,0.34619998931884766,-8.319191,2.4157434,9.638063,8.39884,psychological
-record,pubmed_17371358,pubmed_17371358,2007.0,narrative or expert review,psychological,0.3619000017642975,-4.116837,4.044613,5.0386777,-1.5447611,psychological
-record,pubmed_29722923,pubmed_29722923,2018.0,systematic review,biological,0.3481000065803528,1.7526969,-5.6070366,8.902807,7.2678485,biological
-record,pubmed_35990762,pubmed_35990762,2022.0,narrative or expert review,psychological,0.34700000286102295,-5.66371,-6.41012,11.228606,-3.3724391,psychological
-record,pubmed_12421777,pubmed_12421777,2002.0,narrative or expert review,psychological,0.34450000524520874,-1.5037173,4.1206174,7.7068324,-4.6217537,psychological
-record,pubmed_32870949,pubmed_32870949,2020.0,narrative or expert review,biological,0.34450000524520874,-8.034657,4.693003,10.574255,0.6719159,biological
-record,pubmed_26600874,pubmed_26600874,2015.0,narrative or expert review,psychological,0.34610000252723694,-1.7413801,4.28699,11.006035,-7.5714245,psychological
-record,pubmed_22435173,pubmed_22435173,2012.0,meta-analysis,psychological,0.33660000562667847,-8.407371,4.9348693,11.069801,-6.2039976,psychological
-record,pubmed_23786498,pubmed_23786498,2013.0,narrative or expert review,biological,0.34929999709129333,-4.3917823,-3.3934247,8.35249,10.179588,biological
-record,pubmed_24405725,pubmed_24405725,2014.0,systematic review,psychological,0.3515999913215637,-0.0063434485,-1.2447594,9.362933,-9.713733,psychological
-record,pubmed_40624502,pubmed_40624502,2025.0,systematic review,social,0.3422999978065491,-2.338614,-3.0037017,4.9745536,-2.91989,social
-record,pubmed_39468650,pubmed_39468650,2024.0,scoping or mapping review,biological,0.34049999713897705,-1.6381519,-8.905283,8.162385,-4.605596,biological
-record,pubmed_17420400,pubmed_17420400,2007.0,meta-analysis,biological,0.3400999903678894,1.905639,-6.3232117,9.930347,1.2456616,biological
-record,pubmed_39137213,pubmed_39137213,2024.0,meta-analysis,social,0.3409999907016754,2.9692535,-2.5445774,11.184516,-16.797495,social
-record,pubmed_36791365,pubmed_36791365,2023.0,narrative or expert review,biological,0.3449000120162964,-11.285487,-1.7177503,5.334248,-0.5421514,biological
-record,pubmed_22550985,pubmed_22550985,2012.0,narrative or expert review,biological,0.3440999984741211,-8.38147,2.371822,7.3181996,5.3002143,biological
-record,pubmed_19418887,pubmed_19418887,2009.0,narrative or expert review,psychological,0.3427000045776367,-0.9664931,2.4044952,4.2329826,-8.689359,psychological
-record,pubmed_24966693,pubmed_24966693,2014.0,narrative or expert review,biological,0.364300012588501,-1.4355152,-3.2963972,7.828503,3.6887395,biological
-record,pubmed_25953594,pubmed_25953594,2015.0,systematic review,biological,0.36890000104904175,-6.4940705,-6.05628,8.833631,-2.441925,biological
-record,pubmed_38754116,pubmed_38754116,2024.0,narrative or expert review,biological,0.3578999936580658,-7.1095915,5.0019593,1.6113656,2.3535264,biological
-record,pubmed_39629040,pubmed_39629040,2024.0,narrative or expert review,biological,0.3709000051021576,0.39673835,-4.0081615,9.15042,19.359716,biological
-record,pubmed_38137395,pubmed_38137395,2023.0,narrative or expert review,biological,0.3538999855518341,1.8043402,-5.5881424,12.331508,5.4289594,biological
-record,pubmed_26039013,pubmed_26039013,2015.0,narrative or expert review,psychological,0.36239999532699585,0.3748292,2.5541427,2.4047396,-8.97669,psychological
-record,pubmed_38132273,pubmed_38132273,2023.0,narrative or expert review,biological,0.34779998660087585,-4.5200143,-2.6677313,6.3463044,11.351151,biological
-record,pubmed_38470686,pubmed_38470686,2024.0,systematic review,psychological,0.33719998598098755,-7.2716537,5.2362013,9.864049,-9.852619,psychological
-record,pubmed_33396262,pubmed_33396262,2020.0,scoping or mapping review,social,0.33959999680519104,-4.032126,4.328986,6.136113,-11.026929,social
-record,pubmed_36675454,pubmed_36675454,2023.0,narrative or expert review,biological,0.3474000096321106,-9.915407,-1.8672134,7.1552167,5.8045063,biological
-record,WOS:001116314900001,WOS:001116314900001,,network meta-analysis,social,0.3402000069618225,-2.6137488,-9.288791,8.3918,-10.075284,social
-record,pubmed_31466408,pubmed_31466408,2019.0,narrative or expert review,psychological,0.34119999408721924,-4.6436963,-8.575211,15.22639,-8.911225,psychological
-record,pubmed_36278735,pubmed_36278735,2022.0,systematic review,psychological,0.3440999984741211,-2.8555844,-7.0417137,13.611026,-3.20122,psychological
-record,pubmed_31878346,pubmed_31878346,2019.0,systematic review,biological,0.3418000042438507,-2.423798,-5.3705287,13.778665,-1.5744946,biological
-record,pubmed_39768944,pubmed_39768944,2024.0,systematic review,biological,0.34130001068115234,-2.5220807,-7.533868,15.803553,-9.900224,biological
-record,pubmed_24716562,pubmed_24716562,2014.0,narrative or expert review,biological,0.3481000065803528,-11.215998,-2.0187192,7.6065335,-1.5233043,biological
-record,pubmed_32010899,pubmed_32010899,2019.0,systematic review,psychological,0.3465999960899353,-1.1593322,-8.451905,11.793035,-7.021806,psychological
-record,pubmed_12720511,pubmed_12720511,2003.0,narrative or expert review,psychological,0.352400004863739,-4.9106026,-3.760179,5.5254517,11.041235,psychological
-record,pubmed_28359011,pubmed_28359011,2017.0,narrative or expert review,psychological,0.3422999978065491,-5.262078,-9.742664,13.691167,-7.7131414,psychological
-record,pubmed_2094850,pubmed_2094850,1990.0,narrative or expert review,biological,0.34209999442100525,-4.0877724,1.220034,8.79104,-1.9053267,biological
-record,pubmed_17149465,pubmed_17149465,2006.0,narrative or expert review,social,0.33809998631477356,-5.3295856,-9.23643,13.303396,-14.360301,social
-record,pubmed_10711057,pubmed_10711057,1999.0,narrative or expert review,psychological,0.34380000829696655,-6.4751897,-2.4951813,6.1455674,10.840703,psychological
-record,pubmed_11858295,pubmed_11858295,2000.0,narrative or expert review,psychological,0.3440999984741211,-6.583173,-2.4978545,5.5379214,9.0198345,psychological
-record,pubmed_8940956,pubmed_8940956,1996.0,narrative or expert review,psychological,0.3483000099658966,-9.347576,-1.5989276,2.032855,7.916198,psychological
-record,pubmed_10635197,pubmed_10635197,1999.0,narrative or expert review,psychological,0.3483000099658966,-7.6290126,4.750562,11.488873,-2.2596323,psychological
-record,pubmed_9927896,pubmed_9927896,1998.0,narrative or expert review,psychological,0.35530000925064087,-6.909325,1.493241,-2.2207866,7.2653522,psychological
-record,pubmed_34793635,pubmed_34793635,2021.0,systematic review,psychological,0.349700003862381,-0.6085188,-1.7138072,7.493732,-1.2887878,psychological
-record,pubmed_8842824,pubmed_8842824,1996.0,narrative or expert review,social,0.3384999930858612,-1.9460686,1.0493709,7.6173544,-11.99293,social
-domain_anchor,Biological,,,,,,6.420507,1.7125089,-6.1710687,10.740283,biological
-domain_anchor,Psychological,,,,,,8.144645,8.393409,-12.08408,7.6295347,psychological
-domain_anchor,Social,,,,,,12.754281,6.400676,-11.70209,-12.989326,social
-subdomain_anchor,Central Sensitization and Neuroplasticity,,,,,,6.8320994,2.587067,-17.865152,9.777714,biological
-subdomain_anchor,Musculoskeletal and Structural Pathology,,,,,,7.7167892,3.323873,-15.456262,0.8389898,biological
-subdomain_anchor,Pharmacological and Biomedical Treatment,,,,,,7.323526,3.16816,-15.235332,8.105683,biological
-subdomain_anchor,Sleep Disruption and Circadian Dysregulation,,,,,,7.099794,3.8363447,-16.630959,3.2349405,biological
-subdomain_anchor,Immune Inflammatory and Neuroinflammatory Processes,,,,,,6.9612803,2.9086645,-17.425234,7.9536905,biological
-subdomain_anchor,Genetic Epigenetic and Biological Vulnerability,,,,,,6.2457724,3.3516076,-17.510586,6.0289326,biological
-subdomain_anchor,Neuroimaging Brain Structure and Function,,,,,,7.6110883,2.3137884,-16.990694,7.8950734,biological
-subdomain_anchor,Nociceptive Transmission and Pain Pathways,,,,,,6.470686,2.4791322,-15.970839,14.582853,biological
-subdomain_anchor,Physical Function Mobility and Deconditioning,,,,,,8.10708,3.772735,-19.145412,-3.9539306,biological
-subdomain_anchor,Metabolic Nutritional and Hormonal Factors,,,,,,6.6278734,3.4059684,-15.768053,4.2353106,biological
-subdomain_anchor,Catastrophizing and Negative Cognitive Appraisal,,,,,,6.1392965,8.663344,-22.81616,1.8044219,psychological
-subdomain_anchor,Fear Avoidance and Pain Related Fear,,,,,,5.8257976,8.358057,-23.156355,4.3300753,psychological
-subdomain_anchor,Depression Emotional Distress and Affect,,,,,,5.3606644,7.426744,-25.381968,-0.23978482,psychological
-subdomain_anchor,Anxiety and Psychological Reactivity,,,,,,5.7663603,7.8468256,-23.164652,1.2890339,psychological
-subdomain_anchor,Self Efficacy Control Beliefs and Perceived Mastery,,,,,,6.7488537,10.038596,-22.028967,-3.616843,psychological
-subdomain_anchor,Acceptance Psychological Flexibility and Mindfulness,,,,,,7.015768,8.442939,-20.81856,-1.8216136,psychological
-subdomain_anchor,Pain Coping Strategies and Adjustment,,,,,,6.69877,7.857567,-22.815577,1.2076141,psychological
-subdomain_anchor,Attention Vigilance and Pain Processing,,,,,,6.56677,7.272073,-21.408236,5.945976,psychological
-subdomain_anchor,Illness Beliefs Pain Representations and Meaning,,,,,,6.0702996,9.864932,-21.667671,2.4271688,psychological
-subdomain_anchor,Cognitive Behavioral and Psychotherapeutic Approaches,,,,,,7.4438834,7.780164,-21.805674,4.842922,psychological
-subdomain_anchor,Third Wave Therapies ACT and Contextual Approaches,,,,,,7.9726973,7.5745883,-17.400185,1.6171426,psychological
-subdomain_anchor,Resilience Positive Psychology and Post Traumatic Growth,,,,,,6.845574,8.654569,-21.180517,-3.6756651,psychological
-subdomain_anchor,Identity Self Concept and Chronic Pain Biography,,,,,,5.718419,9.740995,-23.22673,2.2199662,psychological
-subdomain_anchor,Trauma Adverse Childhood and Life Events,,,,,,7.1283736,6.8851542,-22.336893,-1.1546791,psychological
-subdomain_anchor,Personality Psychological Traits and Individual Differences,,,,,,5.1194077,8.891605,-22.479496,2.4910562,psychological
-subdomain_anchor,Cognitive Function Executive Processes and Brain Health,,,,,,6.157312,6.564088,-21.974586,0.77306384,psychological
-subdomain_anchor,Motivational Processes Goal Pursuit and Engagement,,,,,,7.2855096,9.449857,-21.25027,0.14438729,psychological
-subdomain_anchor,Healthcare Seeking Treatment Adherence and Engagement,,,,,,7.963827,9.182143,-19.41286,-3.4307954,psychological
-subdomain_anchor,Emotional Regulation and Pain Affect Processing,,,,,,6.071224,7.54893,-22.969666,4.9804993,psychological
-subdomain_anchor,Mental Health Comorbidity and Psychological Wellbeing,,,,,,5.1614637,7.55234,-21.805908,-3.1756756,psychological
-subdomain_anchor,Social Support Network and Interpersonal Resources,,,,,,11.925766,6.250498,-22.561245,-13.695115,social
-subdomain_anchor,Work Disability Occupational Function and Productivity,,,,,,11.447867,7.1645813,-20.811161,-16.7077,social
-subdomain_anchor,Family Caregiver and Household Dynamics,,,,,,10.551257,6.2465677,-22.536295,-9.483865,social
-subdomain_anchor,Socioeconomic Status and Health Inequity,,,,,,12.033374,5.3539686,-19.122217,-15.201853,social
-subdomain_anchor,Healthcare Access Navigation and System Factors,,,,,,11.08514,5.312238,-19.047968,-10.64932,social
-subdomain_anchor,Cultural Ethnic and Demographic Context,,,,,,10.981317,5.8633213,-21.640438,-7.364173,social
-subdomain_anchor,Community Participation and Social Role Functioning,,,,,,11.485919,6.5641446,-21.727493,-13.598753,social
-subdomain_anchor,Legal Compensation and Medicolegal Systems,,,,,,10.511024,5.171088,-17.137514,-8.044727,social
-subdomain_anchor,Health Literacy Education and Patient Empowerment,,,,,,11.465273,4.645921,-17.533295,-11.212826,social
-subdomain_anchor,Stigma Social Isolation and Exclusion,,,,,,11.982608,5.805135,-21.695787,-12.834767,social
-subdomain_anchor,Return to Work Vocational Rehabilitation and Employment,,,,,,11.426017,7.488205,-18.948092,-18.641668,social
-subdomain_anchor,Social Determinants of Pain and Environment,,,,,,11.591615,5.7695494,-20.403393,-8.441628,social
+record,pubmed_10908542,pubmed_10908542,2000.0,systematic review,biological,0.3359,7.6173,2.6413732,14.263006,-17.99512,biological
+record,pubmed_19160209,pubmed_19160209,2009.0,systematic review,biological,0.3364,7.6131983,2.6431136,14.496811,-18.032328,biological
+record,pubmed_40170347,pubmed_40170347,2025.0,scoping or mapping review,psychological,0.3484,5.283283,2.1221023,9.998089,0.18137826,psychological
+record,pubmed_28371175,pubmed_28371175,2017.0,narrative or expert review,biological,0.3477,5.31691,-1.3536426,9.786334,-2.7585354,biological
+record,pubmed_35434749,pubmed_35434749,2022.0,narrative or expert review,biological,0.3577,1.5252914,3.1407013,7.611049,13.591715,biological
+record,pubmed_7866373,pubmed_7866373,1994.0,narrative or expert review,psychological,0.3373,10.092138,-3.0923476,5.9606504,-2.4085648,psychological
+record,pubmed_21373784,pubmed_21373784,2011.0,narrative or expert review,social,0.3384,7.111033,5.2178392,1.9140984,-12.091069,social
+record,pubmed_38063895,pubmed_38063895,2024.0,narrative or expert review,biological,0.3458,0.029647173,4.684318,7.502286,5.363135,biological
+record,pubmed_29460009,pubmed_29460009,2018.0,systematic review,biological,0.3427,9.937496,-0.66952527,17.109022,-8.8804245,biological
+record,pubmed_20425201,pubmed_20425201,2010.0,narrative or expert review,biological,0.3538,-0.120763436,2.365418,4.9537497,17.017488,biological
+record,pubmed_22102156,pubmed_22102156,2012.0,narrative or expert review,biological,0.3485,0.6577903,-7.075761,0.095813945,-0.71569586,biological
+record,pubmed_36527589,pubmed_36527589,2023.0,narrative or expert review,psychological,0.3382,3.9346147,-0.31295094,6.624826,3.0406303,psychological
+record,pubmed_28752491,pubmed_28752491,2017.0,systematic review,psychological,0.35,3.6663826,1.1358521,6.515275,1.243392,psychological
+record,pubmed_33563380,pubmed_33563380,2021.0,narrative or expert review,biological,0.3599,-1.0542666,2.6200004,8.980032,11.721368,biological
+record,pubmed_17350550,pubmed_17350550,2007.0,narrative or expert review,biological,0.3496,2.2295802,-0.8681053,8.8696785,2.979231,biological
+record,pubmed_23218435,pubmed_23218435,2012.0,narrative or expert review,social,0.3502,8.242575,3.9441583,12.49057,-16.629108,social
+record,pubmed_26096090,pubmed_26096090,2014.0,narrative or expert review,psychological,0.3497,0.29317638,-0.5336393,2.7045383,9.944275,psychological
+record,pubmed_41271285,pubmed_41271285,2026.0,narrative or expert review,psychological,0.3474,1.9249187,-3.3643959,6.5181837,7.0245614,psychological
+record,pubmed_30594766,pubmed_30594766,2019.0,narrative or expert review,biological,0.3495,9.015383,-2.952014,11.844184,-0.47987437,biological
+record,pubmed_29729787,pubmed_29729787,2018.0,narrative or expert review,biological,0.3428,3.9745934,7.2487197,1.9929885,4.7787204,biological
+record,WOS:000453643300005,WOS:000453643300005,,scoping or mapping review,social,0.3381,8.3112,-2.049866,12.093239,-14.064298,social
+record,pubmed_27344405,pubmed_27344405,2016.0,narrative or expert review,psychological,0.3472,1.7773134,-1.6293421,2.3996751,9.464712,psychological
+record,pubmed_26614718,pubmed_26614718,2016.0,narrative or expert review,psychological,0.3456,2.5775373,-1.8320315,4.5080996,6.3022423,psychological
+record,pubmed_26614715,pubmed_26614715,2016.0,narrative or expert review,biological,0.3485,-0.1250346,-0.9171739,0.56463665,12.549618,biological
+record,pubmed_19289225,pubmed_19289225,2009.0,systematic review,biological,0.3501,2.3194742,-6.6239343,9.288765,1.2033969,biological
+record,pubmed_40675665,pubmed_40675665,2025.0,systematic review,biological,0.3709,0.25823748,3.6807232,4.3424354,16.11595,biological
+record,pubmed_27325001,pubmed_27325001,2016.0,systematic review,psychological,0.3533,-3.0656853,-1.0449967,-3.1544025,11.092709,psychological
+record,pubmed_27246519,pubmed_27246519,2016.0,systematic review,psychological,0.3438,2.615619,2.9367795,0.8104061,5.6044497,psychological
+record,pubmed_24602442,pubmed_24602442,2014.0,systematic review,psychological,0.3442,0.46916062,-3.0986845,2.7531476,5.155618,psychological
+record,pubmed_28947182,pubmed_28947182,2018.0,systematic review,psychological,0.3443,2.38,-3.3777173,7.0741506,8.2458725,psychological
+record,pubmed_22814445,pubmed_22814445,2012.0,systematic review,biological,0.3555,8.889011,-3.2919052,13.7386675,0.73845214,biological
+record,pubmed_1477890,pubmed_1477890,1992.0,narrative or expert review,biological,0.3412,8.435757,-2.4111426,9.42889,-8.051375,biological
+record,pubmed_12948346,pubmed_12948346,2003.0,narrative or expert review,psychological,0.3493,4.033316,-2.7028847,4.1043744,4.4059105,psychological
+record,pubmed_17592957,pubmed_17592957,2007.0,narrative or expert review,biological,0.3492,3.488348,-1.60889,7.477641,9.288985,biological
+record,pubmed_18235536,pubmed_18235536,2008.0,narrative or expert review,psychological,0.3548,1.1985486,-0.7853657,5.31067,10.042966,psychological
+record,pubmed_24113949,pubmed_24113949,2013.0,narrative or expert review,biological,0.3408,-4.5279613,2.6441827,8.000279,-1.7044294,biological
+record,pubmed_11092802,pubmed_11092802,2000.0,narrative or expert review,biological,0.3432,5.443814,-3.9284377,11.004904,-6.942387,biological
+record,pubmed_37575343,pubmed_37575343,2023.0,systematic review,psychological,0.3443,-1.9993523,-3.9894521,6.2461376,5.970458,psychological
+record,pubmed_32988440,pubmed_32988440,2020.0,narrative or expert review,biological,0.3349,10.076485,-2.4752429,13.521224,-7.367742,biological
+record,pubmed_27351769,pubmed_27351769,2016.0,narrative or expert review,biological,0.3458,4.4981084,-2.0992951,7.119005,6.8016243,biological
+record,pubmed_35645164,pubmed_35645164,2023.0,narrative or expert review,biological,0.3421,5.792868,-3.8815513,12.265026,-7.0771375,biological
+record,pubmed_11762878,pubmed_11762878,2001.0,narrative or expert review,psychological,0.3402,6.9640336,-3.3045805,10.214019,-7.619634,psychological
+record,pubmed_33682560,pubmed_33682560,2021.0,systematic review,psychological,0.3492,4.603353,-7.39705,13.29513,-2.4399161,psychological
+record,pubmed_36706441,pubmed_36706441,2023.0,narrative or expert review,psychological,0.3532,0.86312366,-2.2305062,4.944935,8.485741,psychological
+record,pubmed_16968689,pubmed_16968689,2006.0,narrative or expert review,social,0.3425,8.379051,4.078979,9.706127,-19.19188,social
+record,pubmed_40418249,pubmed_40418249,2025.0,systematic review,social,0.3378,9.497485,2.9595242,12.132656,-19.185963,social
+record,pubmed_10870733,pubmed_10870733,2000.0,narrative or expert review,psychological,0.3444,-0.5177435,0.35601974,1.734668,12.7081995,psychological
+record,pubmed_2181358,pubmed_2181358,1990.0,narrative or expert review,psychological,0.3448,-2.4082854,-6.2887273,6.26989,-1.6937013,psychological
+record,pubmed_30520741,pubmed_30520741,2019.0,narrative or expert review,psychological,0.344,0.96020955,0.71961796,9.959664,9.089925,psychological
+record,pubmed_26889614,pubmed_26889614,2016.0,systematic review,psychological,0.3383,3.8852866,-5.05104,5.9515758,-4.6127987,psychological
+record,pubmed_29494401,pubmed_29494401,2018.0,narrative or expert review,biological,0.3638,-0.14047113,2.4278216,6.4618435,16.305355,biological
+record,pubmed_35467583,pubmed_35467583,2022.0,narrative or expert review,biological,0.347,-1.9687796,-3.7918637,9.712146,8.4044895,biological
+record,pubmed_27023418,pubmed_27023418,2016.0,meta-analysis,biological,0.3461,4.313626,3.6663964,4.6876616,6.294456,biological
+record,pubmed_27902569,pubmed_27902569,2017.0,narrative or expert review,psychological,0.3468,1.8556424,1.9273193,2.2632666,9.914185,psychological
+record,pubmed_31977935,pubmed_31977935,2020.0,systematic review,psychological,0.3419,6.3337526,-0.933136,14.609911,-8.836279,psychological
+record,pubmed_40101218,pubmed_40101218,2025.0,systematic review,psychological,0.3447,4.7967997,1.2258842,5.851457,-3.1326268,psychological
+record,pubmed_32871946,pubmed_32871946,2020.0,meta-analysis,psychological,0.3483,8.07427,0.2858671,13.435158,-9.235259,psychological
+record,pubmed_27496639,pubmed_27496639,2016.0,narrative or expert review,biological,0.3422,4.0397387,7.2825465,12.2424345,-9.842365,biological
+record,pubmed_24080806,pubmed_24080806,2013.0,narrative or expert review,psychological,0.3648,3.1983116,0.11394988,4.236972,4.301408,psychological
+record,pubmed_24690764,pubmed_24690764,2014.0,narrative or expert review,psychological,0.3464,3.693491,-1.1858492,9.962606,6.7366447,psychological
+record,pubmed_30893103,pubmed_30893103,2019.0,narrative or expert review,biological,0.3514,2.810698,0.9138227,7.292268,9.100805,biological
+record,pubmed_22406986,pubmed_22406986,2012.0,narrative or expert review,psychological,0.353,2.705057,0.68044406,8.838665,8.131521,psychological
+record,pubmed_23314014,pubmed_23314014,2013.0,narrative or expert review,psychological,0.348,1.0639371,0.5466534,7.3347855,10.479433,psychological
+record,pubmed_26148424,pubmed_26148424,2016.0,narrative or expert review,biological,0.3547,-0.14609662,4.7479124,4.5087323,9.802161,biological
+record,pubmed_41268985,pubmed_41268985,2025.0,scoping or mapping review,psychological,0.3619,5.187407,0.17547658,6.9413967,2.2515101,psychological
+record,pubmed_41105043,pubmed_41105043,2025.0,narrative or expert review,biological,0.3618,1.2176032,2.6801305,7.2149043,17.479382,biological
+record,pubmed_24261452,pubmed_24261452,2014.0,narrative or expert review,psychological,0.3462,-3.412356,0.60827166,9.633127,8.394567,psychological
+record,pubmed_17371358,pubmed_17371358,2007.0,narrative or expert review,psychological,0.3619,1.9185644,-7.1845775,5.0446916,-1.5643458,psychological
+record,pubmed_29722923,pubmed_29722923,2018.0,systematic review,biological,0.3481,2.5496716,4.6798997,8.906562,7.2742085,biological
+record,pubmed_35990762,pubmed_35990762,2022.0,narrative or expert review,psychological,0.347,5.826723,-2.0153675,11.225695,-3.3797243,psychological
+record,pubmed_12421777,pubmed_12421777,2002.0,narrative or expert review,psychological,0.3444,5.122796,-7.0733104,7.6936812,-4.623794,psychological
+record,pubmed_32870949,pubmed_32870949,2020.0,narrative or expert review,biological,0.3445,-4.658138,2.8271255,10.575014,0.6628578,biological
+record,pubmed_26600874,pubmed_26600874,2015.0,narrative or expert review,psychological,0.3461,4.869608,-7.3007436,11.00626,-7.585905,psychological
+record,pubmed_22435173,pubmed_22435173,2012.0,meta-analysis,psychological,0.3366,-5.1461024,2.80933,11.065335,-6.2203836,psychological
+record,pubmed_23786498,pubmed_23786498,2013.0,narrative or expert review,biological,0.3493,1.5845157,-0.8221626,8.353644,10.178939,biological
+record,pubmed_24405725,pubmed_24405725,2014.0,systematic review,psychological,0.3516,6.433493,0.8464544,9.364786,-9.7261,psychological
+record,pubmed_40624502,pubmed_40624502,2025.0,systematic review,social,0.3423,4.829929,0.058607917,4.948663,-2.8969219,social
+record,pubmed_39468650,pubmed_39468650,2024.0,scoping or mapping review,biological,0.3405,9.027035,0.75401413,8.158217,-4.601603,biological
+record,pubmed_17420400,pubmed_17420400,2007.0,meta-analysis,biological,0.3401,1.868227,4.9420576,9.9293995,1.2505531,biological
+record,pubmed_39137213,pubmed_39137213,2024.0,meta-analysis,social,0.341,8.756464,-0.76426244,11.185717,-16.795937,social
+record,pubmed_36791365,pubmed_36791365,2023.0,narrative or expert review,biological,0.3449,-0.65248513,-6.1761885,5.328628,-0.5339791,biological
+record,pubmed_22550985,pubmed_22550985,2012.0,narrative or expert review,biological,0.3441,-3.3925755,0.61444604,7.309818,5.3241014,biological
+record,pubmed_19418887,pubmed_19418887,2009.0,narrative or expert review,psychological,0.3427,7.0152435,-5.6451902,4.2274303,-8.694284,psychological
+record,pubmed_24966693,pubmed_24966693,2014.0,narrative or expert review,biological,0.3643,3.9602168,2.2832675,7.8353434,3.6901362,biological
+record,pubmed_25953594,pubmed_25953594,2015.0,systematic review,biological,0.3689,5.99252,3.6692834,8.831369,-2.4454741,biological
+record,pubmed_38754116,pubmed_38754116,2024.0,narrative or expert review,biological,0.3578,-4.227744,3.5431795,1.6078972,2.3393369,biological
+record,pubmed_39629040,pubmed_39629040,2024.0,narrative or expert review,biological,0.3709,1.2015979,2.7746904,9.150753,19.36097,biological
+record,pubmed_38137395,pubmed_38137395,2023.0,narrative or expert review,biological,0.3539,2.7355673,4.6704135,12.333167,5.422862,biological
+record,pubmed_26039013,pubmed_26039013,2015.0,narrative or expert review,psychological,0.3625,7.4971247,-6.205212,2.406021,-8.984851,psychological
+record,pubmed_38132273,pubmed_38132273,2023.0,narrative or expert review,biological,0.3477,0.632477,-0.8592063,6.343453,11.361971,biological
+record,pubmed_38470686,pubmed_38470686,2024.0,systematic review,psychological,0.3372,-4.4951696,3.6945255,9.866643,-9.873509,psychological
+record,pubmed_33396262,pubmed_33396262,2020.0,scoping or mapping review,social,0.3396,1.8983455,-7.4147396,6.1333833,-11.03769,social
+record,pubmed_36675454,pubmed_36675454,2023.0,narrative or expert review,biological,0.3474,-1.5034554,-4.6294193,7.1446013,5.8173213,biological
+record,WOS:001116314900001,WOS:001116314900001,,network meta-analysis,social,0.3402,7.8555307,-1.9238579,8.386769,-10.071519,social
+record,pubmed_31466408,pubmed_31466408,2019.0,narrative or expert review,psychological,0.3412,9.686569,-1.6329964,15.226165,-8.902455,psychological
+record,pubmed_36278735,pubmed_36278735,2022.0,systematic review,psychological,0.3441,8.123407,-0.51344913,13.611656,-3.201579,psychological
+record,pubmed_31878346,pubmed_31878346,2019.0,systematic review,biological,0.3418,5.3758035,2.163869,13.781055,-1.5686362,biological
+record,pubmed_39768944,pubmed_39768944,2024.0,systematic review,biological,0.3413,8.063792,-0.055719003,15.805686,-9.901117,biological
+record,pubmed_24716562,pubmed_24716562,2014.0,narrative or expert review,biological,0.3481,-0.87623936,-5.8122354,7.6069636,-1.5267715,biological
+record,pubmed_32010899,pubmed_32010899,2019.0,systematic review,psychological,0.3466,8.703368,1.2985119,11.795192,-7.02313,psychological
+record,pubmed_12720511,pubmed_12720511,2003.0,narrative or expert review,psychological,0.3524,1.1648892,-0.63301986,5.5274115,11.044361,psychological
+record,pubmed_28359011,pubmed_28359011,2017.0,narrative or expert review,psychological,0.3423,10.565251,-1.6475672,13.693611,-7.7165112,psychological
+record,pubmed_2094850,pubmed_2094850,1990.0,narrative or expert review,biological,0.3421,4.999416,-3.5966039,8.791245,-1.914017,biological
+record,pubmed_17149465,pubmed_17149465,2006.0,narrative or expert review,social,0.3381,10.541143,-2.2212179,13.304057,-14.360832,social
+record,pubmed_10711057,pubmed_10711057,1999.0,narrative or expert review,psychological,0.3438,0.17409086,-2.3658292,6.14776,10.842405,psychological
+record,pubmed_11858295,pubmed_11858295,2000.0,narrative or expert review,psychological,0.3441,0.1569398,-2.4749362,5.539962,9.021767,psychological
+record,pubmed_8940956,pubmed_8940956,1996.0,narrative or expert review,psychological,0.3483,-2.006544,-4.005673,2.0350547,7.914712,psychological
+record,pubmed_10635197,pubmed_10635197,1999.0,narrative or expert review,psychological,0.3483,-4.417891,3.0616055,11.488864,-2.2760155,psychological
+record,pubmed_9927896,pubmed_9927896,1998.0,narrative or expert review,psychological,0.3553,-3.0736852,-0.97809005,-2.220159,7.2590976,psychological
+record,pubmed_34793635,pubmed_34793635,2021.0,systematic review,psychological,0.3497,5.7654743,0.5655861,7.4945984,-1.2847126,psychological
+record,pubmed_8842824,pubmed_8842824,1996.0,narrative or expert review,social,0.3385,6.824857,-3.8243887,7.615783,-11.997901,social
+domain_anchor,Biological,,,,,,-8.503355,-2.6275675,-6.171629,10.7470665,biological
+domain_anchor,Psychological,,,,,,-11.986586,-9.061876,-12.083547,7.622508,psychological
+domain_anchor,Social,,,,,,-16.02168,-5.3141813,-11.70247,-12.964795,social
+subdomain_anchor,Central Sensitization and Neuroplasticity,,,,,,-9.2561655,-3.3009517,-17.864138,9.773722,biological
+subdomain_anchor,Musculoskeletal and Structural Pathology,,,,,,-10.3808,-3.8566864,-15.454403,0.84027314,biological
+subdomain_anchor,Pharmacological and Biomedical Treatment,,,,,,-9.97828,-3.7104385,-15.234802,8.106645,biological
+subdomain_anchor,Sleep Disruption and Circadian Dysregulation,,,,,,-9.833801,-4.4094434,-16.630613,3.2277715,biological
+subdomain_anchor,Immune Inflammatory and Neuroinflammatory Processes,,,,,,-9.611817,-3.5535152,-17.425388,7.9565372,biological
+subdomain_anchor,Genetic Epigenetic and Biological Vulnerability,,,,,,-8.952837,-4.127068,-17.510454,6.025751,biological
+subdomain_anchor,Neuroimaging Brain Structure and Function,,,,,,-10.194804,-2.8498316,-16.990683,7.89151,biological
+subdomain_anchor,Nociceptive Transmission and Pain Pathways,,,,,,-9.096602,-3.1225028,-15.970677,14.590065,biological
+subdomain_anchor,Physical Function Mobility and Deconditioning,,,,,,-10.853736,-4.2369437,-19.143671,-3.9544606,biological
+subdomain_anchor,Metabolic Nutritional and Hormonal Factors,,,,,,-9.350719,-4.125498,-15.766968,4.2282968,biological
+subdomain_anchor,Catastrophizing and Negative Cognitive Appraisal,,,,,,-11.056435,-9.0645685,-22.81533,1.7941263,psychological
+subdomain_anchor,Fear Avoidance and Pain Related Fear,,,,,,-10.15249,-8.866991,-23.153822,4.3207517,psychological
+subdomain_anchor,Depression Emotional Distress and Affect,,,,,,-9.371303,-7.8512506,-25.379269,-0.2504597,psychological
+subdomain_anchor,Anxiety and Psychological Reactivity,,,,,,-9.621525,-8.416531,-23.161726,1.2719506,psychological
+subdomain_anchor,Self Efficacy Control Beliefs and Perceived Mastery,,,,,,-10.668356,-10.565254,-22.026426,-3.624428,psychological
+subdomain_anchor,Acceptance Psychological Flexibility and Mindfulness,,,,,,-10.393605,-9.217068,-20.815796,-1.8306164,psychological
+subdomain_anchor,Pain Coping Strategies and Adjustment,,,,,,-10.498042,-8.480106,-22.813623,1.2034812,psychological
+subdomain_anchor,Attention Vigilance and Pain Processing,,,,,,-10.439296,-7.824802,-21.407076,5.9448214,psychological
+subdomain_anchor,Illness Beliefs Pain Representations and Meaning,,,,,,-11.320971,-10.119511,-21.666382,2.4242833,psychological
+subdomain_anchor,Cognitive Behavioral and Psychotherapeutic Approaches,,,,,,-11.184902,-8.291421,-21.803898,4.83354,psychological
+subdomain_anchor,Third Wave Therapies ACT and Contextual Approaches,,,,,,-11.673492,-8.042877,-17.399258,1.6083118,psychological
+subdomain_anchor,Resilience Positive Psychology and Post Traumatic Growth,,,,,,-8.756387,-9.488031,-21.179552,-3.6851876,psychological
+subdomain_anchor,Identity Self Concept and Chronic Pain Biography,,,,,,-11.341478,-10.2834425,-23.226007,2.2170994,psychological
+subdomain_anchor,Trauma Adverse Childhood and Life Events,,,,,,-8.561686,-8.505011,-22.336693,-1.1624997,psychological
+subdomain_anchor,Personality Psychological Traits and Individual Differences,,,,,,-9.121486,-9.018685,-22.477066,2.4815223,psychological
+subdomain_anchor,Cognitive Function Executive Processes and Brain Health,,,,,,-10.180129,-7.108866,-21.973484,0.7612303,psychological
+subdomain_anchor,Motivational Processes Goal Pursuit and Engagement,,,,,,-10.067095,-9.95107,-21.248781,0.13802134,psychological
+subdomain_anchor,Healthcare Seeking Treatment Adherence and Engagement,,,,,,-9.7086525,-10.145973,-19.411709,-3.4345639,psychological
+subdomain_anchor,Emotional Regulation and Pain Affect Processing,,,,,,-10.06028,-8.130281,-22.967545,4.9711785,psychological
+subdomain_anchor,Mental Health Comorbidity and Psychological Wellbeing,,,,,,-9.1601,-7.8271666,-21.803759,-3.189281,psychological
+subdomain_anchor,Social Support Network and Interpersonal Resources,,,,,,-15.292585,-5.720296,-22.560188,-13.67862,social
+subdomain_anchor,Work Disability Occupational Function and Productivity,,,,,,-14.806297,-6.7187037,-20.810997,-16.697248,social
+subdomain_anchor,Family Caregiver and Household Dynamics,,,,,,-13.846996,-6.012358,-22.535923,-9.469772,social
+subdomain_anchor,Socioeconomic Status and Health Inequity,,,,,,-15.008742,-4.835648,-19.120388,-15.183136,social
+subdomain_anchor,Healthcare Access Navigation and System Factors,,,,,,-14.1753235,-4.8690557,-19.0473,-10.640375,social
+subdomain_anchor,Cultural Ethnic and Demographic Context,,,,,,-14.163252,-5.547634,-21.640574,-7.346276,social
+subdomain_anchor,Community Participation and Social Role Functioning,,,,,,-14.84458,-6.123357,-21.72692,-13.5828905,social
+subdomain_anchor,Legal Compensation and Medicolegal Systems,,,,,,-13.566634,-4.9315553,-17.136383,-8.025022,social
+subdomain_anchor,Health Literacy Education and Patient Empowerment,,,,,,-14.407586,-4.2214236,-17.533367,-11.20218,social
+subdomain_anchor,Stigma Social Isolation and Exclusion,,,,,,-15.065518,-5.5174217,-21.694084,-12.8162155,social
+subdomain_anchor,Return to Work Vocational Rehabilitation and Employment,,,,,,-14.903267,-7.041681,-18.94817,-18.627134,social
+subdomain_anchor,Social Determinants of Pain and Environment,,,,,,-14.71892,-5.2705264,-20.401144,-8.431315,social

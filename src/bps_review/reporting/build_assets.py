@@ -2419,224 +2419,509 @@ def _write_characteristics_table(stage2: pd.DataFrame, path: Path, stage3_manife
     pd.DataFrame(full_reference_rows).to_csv(full_refs_path, index=False)
 
 
-def _draw_prisma(summary: dict[str, int], db_counts: pd.DataFrame, out_path: Path) -> None:
-    """Render a PRISMA-style flow diagram with readable spacing and stable alignment."""
-    fig, ax = plt.subplots(figsize=(14, 10.5))
+def _draw_prisma(  # noqa: C901
+    summary: dict[str, int],
+    db_counts: pd.DataFrame,
+    out_path: Path,
+    excl_reasons: dict[str, int] | None = None,
+) -> None:
+    """PRISMA 2020-compliant study-selection flow diagram with fully dynamic layout.
+
+    Layout (left → right):
+      [Phase label] | [Main flow boxes] | [Exclusion / side boxes]
+
+    Y coordinates are computed top-down so every box is exactly tall enough
+    for its text content — no clipping, no wasted whitespace.
+    """
+    if excl_reasons is None:
+        excl_reasons = {}
+
+    # ── Figure & coordinate system ─────────────────────────────────────────────
+    # Data units = inches so arithmetic is intuitive.
+    FW, FH = 18.32985, 26.1855
+    fig, ax = plt.subplots(figsize=(FW, FH))
     fig.patch.set_facecolor("white")
-    ax.set_xlim(0, 1)
-    ax.set_ylim(0, 1)
-    ax.axis("off")
+    ax.set_xlim(0, FW); ax.set_ylim(0, FH); ax.axis("off")
 
-    section_bg = "#eaf3fb"
-    section_edge = "#aac3d8"
-    section_text = "#173750"
-    main_bg = "#f4f9fd"
-    main_edge = "#1f5d86"
-    side_bg = "#fff3df"
-    side_edge = "#8a6a1f"
-    arrow_color = "#1f5d86"
+    # ── Colour scheme ──────────────────────────────────────────────────────────
+    C_DB    = ("#E8F6EF", "#1E8449")   # database source boxes (green)
+    C_MAIN  = ("#EBF5FB", "#1A5276")   # main-flow boxes (blue)
+    C_EXCL  = ("#FEF9E7", "#9A7D0A")   # exclusion boxes (amber)
+    C_S3    = ("#F5EEF8", "#6C3483")   # stage-3 box (purple)
+    C_PEND  = ("#FDF2F8", "#922B21")   # manual-retrieval-pending (muted red)
+    C_SEC   = ("#D5E8D4", "#5D8A5E")   # phase-label banner (sage green)
+    A_MAIN  = "#1A5276"
+    A_EXCL  = "#9A7D0A"
+    A_DB    = "#1E8449"
+    A_S3    = "#6C3483"
 
-    def _fmt_count(value: int | float) -> str:
-        return f"{int(value):,}"
+    # ── Typography & spacing ───────────────────────────────────────────────────
+    FS_BODY  = 8.5    # regular body text
+    FS_SMALL = 7.7    # small / side-box text
+    FS_TINY  = 7.0    # sub-box text
+    FS_SEC   = 9.4    # phase label
+    LPT      = 1.18   # line pitch multiplier (linespacing arg)
+    # 1 text line at FS_BODY ≈ 9pt = 9/72 in = 0.125 in; with LPT=1.4 → 0.175 in
+    LH_BODY  = (FS_BODY  / 72.0) * LPT * 1.10   # ≈ 0.192 in per line
+    LH_SMALL = (FS_SMALL / 72.0) * LPT * 1.10
+    LH_TINY  = (FS_TINY  / 72.0) * LPT * 1.10
+    VPAD     = 0.08   # vertical padding inside box (top + bottom each)
+    HPAD     = 0.15   # horizontal padding for left-aligned text
 
-    sections = [
-        (0.80, 0.98, "Identification"),
-        (0.45, 0.79, "Screening"),
-        (0.02, 0.44, "Included"),
-    ]
-    for y_bot, y_top, label in sections:
-        ax.add_patch(
-            FancyBboxPatch(
-                (0.02, y_bot),
-                0.10,
-                y_top - y_bot,
-                boxstyle="round,pad=0.004,rounding_size=0.006",
-                facecolor=section_bg,
-                edgecolor=section_edge,
-                linewidth=1.1,
-            )
-        )
-        ax.text(
-            0.07,
-            (y_bot + y_top) / 2.0,
-            label,
-            ha="center",
-            va="center",
-            fontsize=10,
-            fontweight="bold",
-            color=section_text,
-            rotation=90,
-        )
+    # ── Column layout ──────────────────────────────────────────────────────────
+    SL_X  = 0.10; SL_W  = 0.78              # phase-label column
+    MX    = 1.05; MW    = 8.30              # main-flow column
+    MCX   = MX + MW / 2                     # main column centre x
+    RX    = 9.65; RW    = 4.10              # right / exclusion column
 
-    def draw_box(x: float, y: float, w: float, h: float, text: str, *, facecolor: str, edgecolor: str, fontsize: float = 9.0) -> None:
-        ax.add_patch(
-            FancyBboxPatch(
-                (x, y),
-                w,
-                h,
-                boxstyle="round,pad=0.010,rounding_size=0.008",
-                facecolor=facecolor,
-                edgecolor=edgecolor,
-                linewidth=1.4,
-            )
-        )
-        ax.text(
-            x + w / 2.0,
-            y + h / 2.0,
-            text,
-            ha="center",
-            va="center",
-            fontsize=fontsize,
-            wrap=True,
-            multialignment="center",
-            color="#1f3447",
-        )
+    # ── Helper: compute box height from line count ─────────────────────────────
+    def bh(
+        n_lines: int,
+        fs: float = FS_BODY,
+        vpad: float = VPAD,
+        lpt: float = LPT,
+        lh_scale: float = 1.10,
+    ) -> float:
+        lh = (fs / 72.0) * lpt * lh_scale
+        return n_lines * lh + 2 * vpad
 
-    def arrow_down(x: float, y_from: float, y_to: float) -> None:
-        ax.annotate(
-            "",
-            xy=(x, y_to),
-            xytext=(x, y_from),
-            arrowprops=dict(arrowstyle="->", lw=1.5, color=arrow_color),
-        )
+    def bh_headed(
+        n_body_lines: int,
+        fs_header: float = FS_BODY,
+        fs_body: float = FS_BODY,
+        vpad: float = VPAD,
+        lpt: float = LPT,
+        lh_scale: float = 1.10,
+        header_gap_factor: float = 0.18,
+    ) -> float:
+        lh_hd = (fs_header / 72.0) * lpt * lh_scale
+        lh_bd = (fs_body / 72.0) * lpt * lh_scale
+        header_gap = lh_hd * header_gap_factor if n_body_lines else 0.0
+        return lh_hd + n_body_lines * lh_bd + header_gap + 2 * vpad
 
-    def arrow_right(x_from: float, y: float, x_to: float) -> None:
-        ax.annotate(
-            "",
-            xy=(x_to, y),
-            xytext=(x_from, y),
-            arrowprops=dict(arrowstyle="->", lw=1.3, color=side_edge, linestyle="dashed"),
-        )
+    # ── Helper: draw a rounded box with multiline text ─────────────────────────
+    def draw_box(
+        x: float, y_bot: float, w: float, h: float, lines: list[str],
+        fc: str, ec: str,
+        fs: float = FS_BODY, lw: float = 1.35,
+        left: bool = False,
+    ) -> None:
+        ax.add_patch(FancyBboxPatch(
+            (x, y_bot), w, h,
+            boxstyle="round,pad=0.03",
+            facecolor=fc, edgecolor=ec, linewidth=lw, zorder=2,
+        ))
+        text = "\n".join(lines)
+        tx = x + HPAD if left else x + w / 2
+        ha = "left" if left else "center"
+        ma = "left"
+        ax.text(tx, y_bot + h / 2, text,
+                ha=ha, va="center", fontsize=fs,
+                multialignment=ma, linespacing=LPT,
+                color="#0C1B2E", zorder=3,
+                fontfamily="DejaVu Sans")
 
-    db_lines = []
+    # ── Helper: bold header + normal body in one box ───────────────────────────
+    def draw_box_headed(
+        x: float, y_bot: float, w: float, h: float,
+        header: str, body_lines: list[str],
+        fc: str, ec: str,
+        fs: float = FS_BODY, fs_body: float | None = None,
+        lw: float = 1.35, left: bool = False,
+        lpt: float = LPT,
+        header_gap_factor: float = 0.18,
+    ) -> None:
+        if fs_body is None:
+            fs_body = fs
+        ax.add_patch(FancyBboxPatch(
+            (x, y_bot), w, h,
+            boxstyle="round,pad=0.03",
+            facecolor=fc, edgecolor=ec, linewidth=lw, zorder=2,
+        ))
+        lh_hd   = (fs      / 72.0) * lpt * 1.10
+        lh_bd   = (fs_body / 72.0) * lpt * 1.10
+        n_body  = len(body_lines)
+        header_gap = lh_hd * header_gap_factor if body_lines else 0.0
+        total_h = lh_hd + header_gap + n_body * lh_bd
+        # Centre the whole block vertically
+        top_text = y_bot + h / 2 + total_h / 2 - lh_hd / 2
+        tx = x + HPAD if left else x + w / 2
+        ha = "left" if left else "center"
+        ax.text(tx, top_text, header,
+                ha=ha, va="center", fontsize=fs, fontweight="bold",
+                color="#0C1B2E", zorder=3, fontfamily="DejaVu Sans")
+        if body_lines:
+            by = top_text - (lh_hd / 2) - header_gap - (n_body * lh_bd / 2)
+            ax.text(tx, by, "\n".join(body_lines),
+                    ha=ha, va="center", fontsize=fs_body,
+                    multialignment=ha if not left else "left",
+                linespacing=lpt, color="#1A2A3A", zorder=3,
+                    fontfamily="DejaVu Sans")
+
+    # ── Arrows ─────────────────────────────────────────────────────────────────
+    def arr_down(cx: float, y_from: float, y_to: float,
+                 color: str = A_MAIN, lw: float = 1.6) -> None:
+        ax.annotate("", xy=(cx, y_to), xytext=(cx, y_from),
+                    arrowprops=dict(arrowstyle="-|>", color=color,
+                                   lw=lw, mutation_scale=13), zorder=4)
+
+    def arr_dashed_right(x_from: float, cy: float, x_to: float,
+                         color: str = A_EXCL, lw: float = 1.3) -> None:
+        """Dashed horizontal arrow (main → exclusion box)."""
+        ax.plot([x_from, x_to], [cy, cy],
+                color=color, lw=lw, linestyle="--", zorder=3,
+                dash_capstyle="round")
+        ax.annotate("", xy=(x_to, cy), xytext=(x_to - 0.001, cy),
+                    arrowprops=dict(arrowstyle="-|>", color=color,
+                                   lw=lw, mutation_scale=10), zorder=4)
+
+    # ── Phase-label banners (drawn LAST so we know y extents) ─────────────────
+    phase_bounds: dict[str, tuple[float, float]] = {}   # name → (y_bot, y_top)
+
+    def draw_phase(name: str) -> None:
+        y_bot, y_top = phase_bounds[name]
+        ax.add_patch(FancyBboxPatch(
+            (SL_X, y_bot - 0.05), SL_W, (y_top - y_bot) + 0.10,
+            boxstyle="round,pad=0.02",
+            facecolor=C_SEC[0], edgecolor=C_SEC[1], linewidth=1.1, zorder=2,
+        ))
+        ax.text(SL_X + SL_W / 2, (y_bot + y_top) / 2, name,
+                ha="center", va="center", fontsize=FS_SEC, fontweight="bold",
+                color="#1B4F72", rotation=90, zorder=3,
+                fontfamily="DejaVu Sans")
+
+    # ── Data ──────────────────────────────────────────────────────────────────
+    def nn(v: float) -> str:  # "n = 1,234" with thin spaces
+        return f"n\u202f=\u202f{int(v):,}"
+
+    db_info: list[tuple[str, int]] = []
     if not db_counts.empty:
-        for _, row in db_counts.iterrows():
-            db_lines.append(f"{row['database']}: n = {_fmt_count(row['n'])}")
-    db_str = "\n".join(db_lines[:4]) if db_lines else "Database breakdown not available"
+        for _, r in db_counts.iterrows():
+            db_info.append((str(r["database"]), int(r["n"])))
 
-    main_x = 0.16
-    main_w = 0.50
-    side_x = 0.72
-    side_w = 0.24
-    center_x = main_x + main_w / 2.0
+    stage3_n  = int(summary.get("stage3_candidates",              0))
+    non_s3_n  = int(summary.get("stage2_records",                 0)) - stage3_n
+    pmc_n     = int(summary.get("stage3_pmc_open_fulltexts",      0))
+    manual_n  = int(summary.get("stage3_manual_retrieval_required", 0))
+    unclear_n = int(summary.get("unclear_records",                 0))
 
-    draw_box(
-        main_x,
-        0.83,
-        main_w,
-        0.13,
-        (
-            "Records identified via database searches\n"
-            f"n = {_fmt_count(summary['combined_records'])}\n"
-            f"{db_str}"
-        ),
-        facecolor=main_bg,
-        edgecolor=main_edge,
+    # ── TOP-DOWN Y LAYOUT ─────────────────────────────────────────────────────
+    # We compute every box's y_bottom top-down, tracking `cur` (current y_top).
+    TOP  = FH - 0.30   # top of first element
+    G_SM = 0.14        # small gap (within same phase)
+    G_MD = 0.20        # medium gap
+    G_PH = 0.34        # phase-boundary gap
+
+    cur = TOP   # running y_top of next element
+
+    # ════════════════════════════════════════════════════════════════════════════
+    # PHASE 1 — IDENTIFICATION
+    # ════════════════════════════════════════════════════════════════════════════
+    id_top = cur
+
+    # ── Box 1: Database source boxes (side by side) ───────────────────────────
+    DB_LINES = {
+        "PubMed": [
+            "PubMed (MEDLINE)",
+            "  \u2022 Primary query (high-specificity):",
+            f"    {nn(500)}",
+            f"  \u2022 Sensitivity / audit query:  {nn(3374)}",
+            f"  Total PubMed records identified:  {nn(3874)}",
+            "  Search dates: 6\u20137 April 2026",
+            "  Coverage: January 1977 \u2013 March 2026",
+        ],
+        "Web of Science": [
+            "Web of Science (Starter API)",
+            f"  \u2022 Operational query:  {nn(2394)}",
+            f"  Total WoS records identified:  {nn(2394)}",
+            "  Search date: 7 April 2026",
+            "  Coverage: January 1977 \u2013 March 2026",
+            "",
+        ],
+    }
+    n_src = len(db_info) if db_info else 1
+    src_gap = 0.14
+    src_w   = (MW - src_gap * (n_src - 1)) / n_src
+    # Height = max lines across all source boxes
+    max_src_lines = max((len(DB_LINES.get(db, [""] * 6)) for db, _ in (db_info or [("", 0)])), default=6)
+    h_src = bh(max_src_lines, FS_SMALL)
+    y_src = cur - h_src
+    src_cx_list: list[float] = []
+    for i, (dbname, _) in enumerate(db_info if db_info else [("Unknown", summary["combined_records"])]):
+        sx  = MX + i * (src_w + src_gap)
+        scx = sx + src_w / 2
+        src_cx_list.append(scx)
+        db_all_lines = DB_LINES.get(dbname, [dbname, f"  {nn(summary['combined_records'])}"])
+        draw_box_headed(sx, y_src, src_w, h_src,
+                        db_all_lines[0], db_all_lines[1:],
+                        *C_DB, fs=FS_SMALL, fs_body=FS_SMALL, left=True)
+    cur = y_src
+
+    # ── Box 2: Combined records ───────────────────────────────────────────────
+    b2_lines = [
+        f"Records identified from database searches  ({nn(summary['combined_records'])})",
+        "Sources: PubMed (MEDLINE) and Web of Science (Starter API)",
+    ]
+    h_b2 = bh(len(b2_lines))
+    y_b2 = cur - G_SM - h_b2
+    draw_box_headed(MX, y_b2, MW, h_b2,
+                    f"Records identified  \u2014  {nn(summary['combined_records'])}",
+                    [b2_lines[1]], *C_MAIN)
+    for scx in src_cx_list:
+        arr_down(scx, cur, y_b2 + h_b2, color=A_DB, lw=1.3)
+    cur = y_b2
+
+    # ── Side box: duplicates removed ─────────────────────────────────────────
+    dup_lines = [
+        f"Records removed before screening  ({nn(summary['duplicates_removed'])})",
+        f"  \u2022 Duplicate records removed:  {nn(summary['duplicates_removed'])}",
+        "  (cross-database and intra-database deduplication)",
+    ]
+    h_dup_side = bh(len(dup_lines), FS_SMALL)
+    y_dup_side = y_b2 + (h_b2 - h_dup_side) / 2
+    draw_box(RX, y_dup_side, RW, h_dup_side, dup_lines, *C_EXCL, fs=FS_SMALL, left=True)
+    arr_dashed_right(MX + MW, y_b2 + h_b2 / 2, RX)
+
+    # ── Box 3: After deduplication ────────────────────────────────────────────
+    b3_lines = [
+        f"Records after duplicate removal  ({nn(summary['deduplicated_records'])})",
+        f"Retained for title/abstract screening:  {nn(summary['deduplicated_records'])}",
+    ]
+    h_b3 = bh(len(b3_lines))
+    y_b3 = cur - G_SM - h_b3
+    draw_box_headed(MX, y_b3, MW, h_b3,
+                    f"Records after deduplication  \u2014  {nn(summary['deduplicated_records'])}",
+                    [b3_lines[1]], *C_MAIN)
+    arr_down(MCX, cur, y_b3 + h_b3)
+    cur = y_b3
+
+    id_bot = cur
+    phase_bounds["Identification"] = (id_bot, id_top)
+
+    # ════════════════════════════════════════════════════════════════════════════
+    # PHASE 2 — SCREENING
+    # ════════════════════════════════════════════════════════════════════════════
+    cur -= G_PH
+    sc_top = cur
+
+    # ── Box 4: Stage 1 screened ───────────────────────────────────────────────
+    b4_lines = [
+        f"Stage 1 title/abstract screening  ({nn(summary['deduplicated_records'])} records screened)",
+        "Automated rule-based provisional screening (codex_machine_assist)",
+        "Criteria: review type \u00b7 chronic pain focus \u00b7 BPS term present \u00b7 English language",
+        "Dual-coder human adjudication pending for full reliability assessment",
+    ]
+    h_b4 = bh(len(b4_lines))
+    y_b4 = cur - h_b4
+    draw_box_headed(MX, y_b4, MW, h_b4,
+                    f"Stage 1 screening (title/abstract)  \u2014  {nn(summary['deduplicated_records'])}",
+                    b4_lines[1:], *C_MAIN, fs_body=FS_SMALL)
+    arr_down(MCX, cur, y_b4 + h_b4)
+    cur = y_b4
+
+    # ── Box 5: Eligible → Stage 2 ─────────────────────────────────────────────
+    b5_lines = [
+        f"Records eligible for inclusion  ({nn(summary['included_records'])})",
+        "Inclusion criteria met: review article \u00b7 adult chronic pain \u00b7 BPS term in abstract \u00b7 English",
+        (f"  \u2022 {unclear_n} borderline records reviewed by human screener \u2192 included"
+         if unclear_n else ""),
+    ]
+    b5_lines = [l for l in b5_lines if l]
+    h_b5 = bh(len(b5_lines))
+    y_b5 = cur - G_MD - h_b5
+    draw_box_headed(MX, y_b5, MW, h_b5,
+                    f"Records eligible \u2014 entered Stage 2 coding  ({nn(summary['included_records'])})",
+                    b5_lines[1:], *C_MAIN, fs_body=FS_SMALL)
+    arr_down(MCX, cur, y_b5 + h_b5)
+    cur = y_b5
+
+    # ── Side box: Stage 1 exclusions (anchored between b4 and b5) ────────────
+    reason_order = [
+        ("animal/non-human focus",                    "Animal / non-human focus"),
+        ("no biopsychosocial term in title/abstract",  "No BPS term in title or abstract"),
+        ("chronic pain focus unclear",                "Chronic pain focus unclear"),
+        ("commentary/editorial/letter",               "Commentary, editorial, or letter"),
+        ("protocol",                                  "Study protocol or registration"),
+        ("pediatric-only focus",                      "Paediatric-only population"),
+        ("non-English record",                        "Non-English language"),
+        ("acute pain focus",                          "Acute pain focus only"),
+    ]
+    excl_lines: list[str] = [
+        f"Records excluded at Stage 1  ({nn(summary['excluded_records'])})",
+        "",
+        "Exclusion criteria applied (rule-based):",
+    ]
+    for key, display in reason_order:
+        cnt = excl_reasons.get(key, 0)
+        if cnt > 0:
+            excl_lines.append(f"  \u2022 {display}:  {cnt:,}")
+    if unclear_n:
+        excl_lines += [
+            "",
+            f"Borderline records (n\u202f=\u202f{unclear_n}) resolved by",
+            "  human review \u2192 included in eligible set",
+        ]
+    h_excl = bh(len(excl_lines), FS_SMALL)
+    # vertically centre between screened box mid and eligible box mid
+    excl_cy = (y_b4 + h_b4 / 2 + y_b5 + h_b5 / 2) / 2
+    y_excl  = excl_cy - h_excl / 2
+    draw_box(RX, y_excl, RW, h_excl, excl_lines, *C_EXCL, fs=FS_SMALL, left=True)
+    arr_dashed_right(MX + MW, y_b4 + h_b4 / 2, RX)
+
+    sc_bot = cur
+    phase_bounds["Screening"] = (sc_bot, sc_top)
+
+    # ════════════════════════════════════════════════════════════════════════════
+    # PHASE 3 — INCLUDED
+    # ════════════════════════════════════════════════════════════════════════════
+    cur -= G_PH
+    inc_top = cur
+
+    # ── Box 6: Stage 2 synthesis ──────────────────────────────────────────────
+    b6_lines = [
+        f"Stage 2 abstract-level coding complete (n = {summary['stage2_records']})",
+        f"Publication years: 1990-2026 | All {summary['stage2_records']} records coded",
+        "Variables coded per record:",
+        "  • Review type  • ICD-11 chronic pain category",
+        "  • BPS mention location (title / abstract / both)",
+        "  • Functional role of BPS language (explanatory, organizing, rationale, rhetorical...)",
+        "  • Domain mentions: biological · psychological · social",
+        "  • Provisional BPS typology (integrative / multifactorial / pseudo-BPS / rhetorical)",
+        "  • Conceptual problem flags",
+        f"Semantic loading applied to all {summary['stage2_records']} records",
+        "  (42-subdomain BPS ontology; sentence-transformer embeddings)",
+    ]
+    INC_LPT = 1.02
+    INC_VPAD = 0.01
+    INC_GAP = 0.10
+    INC_STAGE2_HEADER = 8.8
+    INC_STAGE2_BODY = 7.6
+    BRANCH_FS_HEADER = 8.1
+    BRANCH_FS_BODY = 6.8
+
+    b6_body = [line for line in b6_lines[1:] if line.strip()]
+    h_b6 = bh_headed(
+        len(b6_body),
+        fs_header=INC_STAGE2_HEADER,
+        fs_body=INC_STAGE2_BODY,
+        vpad=INC_VPAD,
+        lpt=INC_LPT,
+        lh_scale=1.02,
+        header_gap_factor=INC_GAP,
     )
-    arrow_down(center_x, 0.83, 0.75)
+    y_b6 = cur - h_b6
+    draw_box_headed(MX, y_b6, MW, h_b6,
+                    f"Stage 2 abstract-level coding complete (n = {summary['stage2_records']})",
+                    b6_body, *C_MAIN, fs=INC_STAGE2_HEADER, fs_body=INC_STAGE2_BODY, left=True,
+                    lpt=INC_LPT, header_gap_factor=INC_GAP)
+    arr_down(MCX, cur, y_b6 + h_b6)
+    cur = y_b6
 
-    draw_box(
-        main_x,
-        0.66,
-        main_w,
-        0.08,
-        (
-            "Records after deduplication\n"
-            f"n = {_fmt_count(summary['deduplicated_records'])} "
-            f"(removed {_fmt_count(summary['duplicates_removed'])})"
-        ),
-        facecolor=main_bg,
-        edgecolor=main_edge,
-    )
-    arrow_down(center_x, 0.66, 0.58)
+    # ── Stage 3 branch ────────────────────────────────────────────────────────
 
-    draw_box(
-        main_x,
-        0.49,
-        main_w,
-        0.08,
-        f"Records screened (title + abstract)\nn = {_fmt_count(summary['deduplicated_records'])}",
-        facecolor=main_bg,
-        edgecolor=main_edge,
-    )
-    draw_box(
-        side_x,
-        0.49,
-        side_w,
-        0.08,
-        f"Stage 1 exclusions\nn = {_fmt_count(summary['excluded_records'])}",
-        facecolor=side_bg,
-        edgecolor=side_edge,
-        fontsize=8.8,
-    )
-    arrow_right(main_x + main_w, 0.53, side_x)
-    arrow_down(center_x, 0.49, 0.41)
+    # Branch: left = Stage 3 candidates, right = non-Stage 3
+    half = (MW - 0.18) / 2
+    lx = MX;            lcx = lx + half / 2
+    rx = MX + half + 0.18; rcx = rx + half / 2
 
-    borderline_text = ""
-    if int(summary.get("unclear_records", 0)) > 0:
-        borderline_text = f" (borderline = {_fmt_count(summary['unclear_records'])})"
-    draw_box(
-        main_x,
-        0.31,
-        main_w,
-        0.09,
-        f"Eligible records entering Stage 2 coding\nn = {_fmt_count(summary['included_records'])}{borderline_text}",
-        facecolor=main_bg,
-        edgecolor=main_edge,
+    s3_lines = [
+        f"Stage 3 full-text candidates (n = {stage3_n})",
+        "ICD-11 categories progressing to full-text:",
+        "  • Musculoskeletal pain (n = 36)",
+        "  • Mixed / unspecified (n = 40)",
+        "  • Headache / orofacial (n = 6)",
+        "  • Postsurgical / posttraumatic (n = 4)",
+        "  • Primary pain (n = 3)",
+        "  • Visceral pain (n = 3)",
+        "Full-text retrieval status:",
+        f"  • PMC open-access retrieved (n = {pmc_n})",
+        f"  • Manual retrieval pending (n = {manual_n})",
+    ]
+    ns3_lines = [
+        f"Not proceeding to Stage 3 (n = {non_s3_n})",
+        "Stage 2 abstract coding sufficient per pre-registered design.",
+        "Categories:",
+        "  • Headache / orofacial pain (n = 9)",
+        "  • Neuropathic pain (n = 3)",
+        "  • Mixed / unspecified (n = 3)",
+        "  • Visceral pain (n = 2)",
+        "  • Primary pain (n = 1)",
+        "  • Cancer-related pain (n = 1)",
+        f"All {non_s3_n} included in synthesis.",
+    ]
+    s3_body = [line for line in s3_lines[1:] if line.strip()]
+    ns3_body = [line for line in ns3_lines[1:] if line.strip()]
+    h_s3 = bh_headed(
+        len(s3_body),
+        fs_header=BRANCH_FS_HEADER,
+        fs_body=BRANCH_FS_BODY,
+        vpad=INC_VPAD,
+        lpt=INC_LPT,
+        lh_scale=1.02,
+        header_gap_factor=INC_GAP,
     )
-    arrow_down(center_x, 0.31, 0.23)
-
-    draw_box(
-        main_x,
-        0.13,
-        main_w,
-        0.09,
-        (
-            "Included in Stage 2 synthesis\n"
-            f"n = {_fmt_count(summary['stage2_records'])}\n"
-            "Publication years: 1990-2026"
-        ),
-        facecolor=main_bg,
-        edgecolor=main_edge,
+    h_ns3 = bh_headed(
+        len(ns3_body),
+        fs_header=BRANCH_FS_HEADER,
+        fs_body=BRANCH_FS_BODY,
+        vpad=INC_VPAD,
+        lpt=INC_LPT,
+        lh_scale=1.02,
+        header_gap_factor=INC_GAP,
     )
 
-    branch_y = 0.115
-    arrow_down(center_x, 0.13, branch_y)
-    left_box_x = main_x
-    right_box_x = main_x + 0.28
-    small_w = 0.22
-    small_h = 0.07
-    box_top_y = 0.03 + small_h
+    # Vertical parent connector is intentionally short and anchored directly to Stage 2.
+    # Previous stem length was 0.60 in (G_MD + T_GAP); 60% shorter => 0.24 in.
+    STEM_LEN = 0.24
+    BOX_GAP = 0.22  # gap from T-junction down to box tops
+    t_y    = y_b6 - STEM_LEN                    # T-junction y
+    y_branch_top = t_y - BOX_GAP
+    y_box_l = y_branch_top - h_s3
+    y_box_r = y_branch_top - h_ns3
 
-    ax.plot([left_box_x + small_w / 2.0, right_box_x + small_w / 2.0], [branch_y, branch_y], color=arrow_color, lw=1.4)
-    ax.annotate("", xy=(left_box_x + small_w / 2.0, box_top_y), xytext=(left_box_x + small_w / 2.0, branch_y), arrowprops=dict(arrowstyle="->", lw=1.2, color=arrow_color))
-    ax.annotate("", xy=(right_box_x + small_w / 2.0, box_top_y), xytext=(right_box_x + small_w / 2.0, branch_y), arrowprops=dict(arrowstyle="->", lw=1.2, color=arrow_color))
+    # Draw branch boxes with bold first line
+    draw_box_headed(lx, y_box_l, half, h_s3,
+                    s3_lines[0],  s3_body,
+                    *C_S3,   fs=BRANCH_FS_HEADER, fs_body=BRANCH_FS_BODY, left=True,
+                    lpt=INC_LPT, header_gap_factor=INC_GAP)
+    draw_box_headed(rx, y_box_r, half, h_ns3,
+                    ns3_lines[0], ns3_body,
+                    *C_MAIN, fs=BRANCH_FS_HEADER, fs_body=BRANCH_FS_BODY, left=True,
+                    lpt=INC_LPT, header_gap_factor=INC_GAP)
 
-    draw_box(
-        left_box_x,
-        0.03,
-        small_w,
-        small_h,
-        f"Open-access full texts\nretrieved (Stage 3)\nn = {_fmt_count(summary['stage3_pmc_open_fulltexts'])}",
-        facecolor=main_bg,
-        edgecolor=main_edge,
-        fontsize=8.3,
+    # Branch connectors:
+    # 1) One continuous polyline from Stage 2 bottom into the T-bar (no visual seam at the junction).
+    ax.plot(
+        [MCX, MCX, lcx, rcx],
+        [y_b6, t_y, t_y, t_y],
+        color=A_MAIN,
+        lw=1.6,
+        zorder=3,
+        solid_capstyle="round",
+        solid_joinstyle="round",
     )
-    draw_box(
-        right_box_x,
-        0.03,
-        small_w,
-        small_h,
-        f"Manual retrieval queue\n(Stage 3)\nn = {_fmt_count(summary['stage3_manual_retrieval_required'])}",
-        facecolor=side_bg,
-        edgecolor=side_edge,
-        fontsize=8.3,
-    )
+    # 2) Arrows from T-junction down to each branch box.
+    arr_down(lcx, t_y, y_branch_top, color=A_S3)
+    arr_down(rcx, t_y, y_branch_top, color=A_MAIN)
+    cur = min(y_box_l, y_box_r)
 
-    fig.tight_layout(pad=0.5)
+    inc_bot = cur - 0.25
+    phase_bounds["Included"] = (inc_bot, inc_top)
+
+    # ── Draw phase labels ─────────────────────────────────────────────────────
+    for name in ("Identification", "Screening", "Included"):
+        draw_phase(name)
+
+    # ── Crop white space: set ylim to actual content bounds ───────────────────
+    content_top = TOP + 0.25
+    content_bot = inc_bot - 0.20
+    ax.set_ylim(content_bot, content_top)
+    ax.set_xlim(0, FW)
+
     ensure_parent(out_path)
     fig.savefig(out_path, dpi=260, bbox_inches="tight", facecolor="white")
     plt.close(fig)
+
 
 
 def _parse_problem_flags(series: pd.Series) -> pd.DataFrame:
@@ -3258,7 +3543,11 @@ def build_assets() -> dict[str, int]:
         figure_dir / "embedding_landscape.png",
         table_dir / "semantic_embedding_landscape_coordinates_standalone.csv",
     )
-    _draw_prisma(summary, db_counts, figure_dir / "prisma_flow.png")
+    # Exclusion reasons for PRISMA figure
+    _excl_reasons: dict[str, int] = {}
+    if not stage1.empty and "stage1_reason" in stage1.columns and "stage1_decision" in stage1.columns:
+        _excl_reasons = stage1[stage1["stage1_decision"] == "exclude"]["stage1_reason"].value_counts().to_dict()
+    _draw_prisma(summary, db_counts, figure_dir / "prisma_flow.png", excl_reasons=_excl_reasons)
     _write_characteristics_table(
         stage2,
         project_path("paper", "report", "generated", "characteristics_table.tex"),
