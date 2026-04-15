@@ -1,0 +1,87 @@
+\documentclass[11pt]{article}
+\input{../common_preamble.tex}
+
+\begin{document}
+\schemeheader
+  {Scheme 1}
+  {Stage 1 Screening and Eligibility Decision Scheme}
+  {Systematic Review on How the Biopsychosocial Model Frames Chronic Pain Research}
+
+\section*{Purpose}
+This scheme operationalizes title and abstract screening after search and deduplication. Its function is to decide whether a record should enter the review corpus for downstream coding, using a human-validatable rule set centered on biopsychosocial language, chronic pain relevance, review design, and population eligibility.
+
+\section*{Operational Status}
+\begin{itemize}
+\item Workflow position: pre-extraction eligibility screen.
+\item Operational mode: rule-based provisional machine assist with human validation.
+\item Canonical implementation basis: executable screening rules plus protocol decision guidance.
+\end{itemize}
+
+\section*{Canonical Source Paths}
+\begin{itemize}
+\item \filepath{src/protocol/decision_rules/screening_rules.md}
+\item \filepath{src/bps_review/screening/rules.py}
+\item \filepath{src/review_stages/03_screening/README.md}
+\item \filepath{src/protocol/osf/OSF_registration_HTBMFCPR.md}
+\end{itemize}
+
+\section*{Inputs Reviewed}
+\begin{description}
+\item[\field{title}] Record title.
+\item[\field{abstract}] Record abstract text.
+\item[\field{publication_types}] Publication type metadata used to distinguish reviews from protocols, commentaries, and primary studies.
+\item[\field{language}] Language metadata used to enforce English-language eligibility.
+\item[\field{publication_date} / \field{year}] Publication timing, checked against the operational search window.
+\end{description}
+
+\section*{Decision Categories}
+\begin{description}
+\item[\field{stage1_decision}] Implemented values are \texttt{include}, \texttt{exclude}, and \texttt{unclear}. The prose rules also allow a borderline \texttt{maybe} state; in the current executable implementation, ambiguous cases are operationalized as \texttt{unclear}.
+\item[\field{stage1_reason}] Controlled reason attached to exclusions or unclear cases.
+\item[\field{stage1_confidence}] Implemented values are \texttt{high}, \texttt{medium}, and \texttt{low}.
+\item[\field{stage1_screened_by}] In current outputs this is recorded as \texttt{codex\_machine\_assist}.
+\item[\field{stage1_screening_mode}] In current outputs this is recorded as \texttt{rule\_based\_provisional}.
+\end{description}
+
+\section*{Inclusion Logic}
+\begin{itemize}
+\item The record is a review article or review-like evidence synthesis.
+\item The title or abstract explicitly contains a biopsychosocial term: \texttt{biopsychosocial}, \texttt{bio-psycho-social}, or \texttt{bio psycho social}.
+\item The focus concerns chronic pain, persistent pain, or a chronic pain condition.
+\item The population is adult or mixed-age rather than pediatric-only.
+\item The record is within the operational search window and in English.
+\end{itemize}
+
+\section*{Exclusion Logic and Implemented Reason Labels}
+\begin{description}
+\item[\texttt{no biopsychosocial term in title/abstract}] No explicit biopsychosocial term is present in title or abstract.
+\item[\texttt{outside operational search window}] Publication date falls before or after the operational search dates configured in \filepath{config/protocol.yaml}.
+\item[\texttt{protocol}] Protocol papers are excluded.
+\item[\texttt{commentary/editorial/letter}] Commentary-type publications are excluded.
+\item[\texttt{animal/non-human focus}] Animal-only or non-human records are excluded unless a human focus is explicit.
+\item[\texttt{pediatric-only focus}] Pediatric-only populations are excluded.
+\item[\texttt{acute pain focus}] Acute pain records are excluded when chronicity is not also explicit.
+\item[\texttt{chronic pain focus unclear}] Pain is present but chronic pain relevance is insufficiently clear.
+\item[\texttt{non-English record}] Non-English records are excluded.
+\item[\texttt{review status unclear}] Used when the record cannot be confidently identified as a review or evidence synthesis from title, abstract, or publication metadata.
+\end{description}
+
+\section*{Borderline Handling}
+\begin{itemize}
+\item Ambiguous review type, mixed acute/chronic populations, unclear age group, or unclear pain duration should not be over-excluded.
+\item Borderline cases are logged with a rationale and lower confidence.
+\item Musculoskeletal ambiguity is intentionally carried forward; Stage 3 full-text adjudication resolves that ambiguity rather than Stage 1 excluding too aggressively.
+\end{itemize}
+
+\section*{Primary Outputs Using This Scheme}
+\begin{itemize}
+\item \filepath{src/review_stages/03_screening/outputs/stage1_screening.csv}
+\item \filepath{src/review_stages/03_screening/audit/stage1_screening_summary.csv}
+\item \filepath{src/review_stages/03_screening/audit/reliability_report.csv}
+\end{itemize}
+
+\section*{Interpretive Note}
+Although this scheme is not prompt-driven, it is part of the operational coding architecture of the review because it creates the standardized eligibility categories that determine which records can enter Stage 2 abstract coding and, later, Stage 3 full-text adjudication.
+
+\end{document}
+

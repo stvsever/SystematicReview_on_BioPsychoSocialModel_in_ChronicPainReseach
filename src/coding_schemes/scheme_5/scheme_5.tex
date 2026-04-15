@@ -1,0 +1,88 @@
+\documentclass[11pt]{article}
+\input{../common_preamble.tex}
+
+\begin{document}
+\schemeheader
+  {Scheme 5}
+  {Psychological Concept Clustering and Framework Mapping Scheme}
+  {Prompt-based normalization of detected psychological concepts}
+
+\section*{Purpose}
+This scheme standardizes higher-order concept mapping after concept detection. It groups extracted psychological concepts from chronic pain review records into interpretable families and links them to likely theoretical frameworks. The goal is to support cross-record comparability when the raw concepts are heterogeneous, overlapping, or variably named.
+
+\section*{Operational Status}
+\begin{itemize}
+\item Workflow position: post-detection concept normalization.
+\item Operational mode: fixed pattern-based concept detection upstream, followed by LLM clustering for higher-order normalization.
+\item Canonical implementation basis: \filepath{src/bps_review/extraction/coding.py}.
+\end{itemize}
+
+\section*{Canonical Source Paths}
+\begin{itemize}
+\item \filepath{src/bps_review/extraction/coding.py}
+\item \filepath{src/protocol/codebooks/stage2_codebook.md}
+\item \filepath{src/protocol/codebooks/stage3_codebook.md}
+\item \filepath{src/data/interim/extraction/llm_concept_clusters.json}
+\end{itemize}
+
+\section*{Upstream Detection Seeds}
+\subsection*{Psychological Concept Patterns}
+\begin{itemize}
+\item \texttt{fear-avoidance}
+\item \texttt{catastrophizing}
+\item \texttt{kinesiophobia}
+\item \texttt{depression}
+\item \texttt{anxiety}
+\item \texttt{coping}
+\item \texttt{self-efficacy}
+\item \texttt{acceptance}
+\item \texttt{illness perceptions}
+\item \texttt{pain beliefs}
+\item \texttt{distress}
+\item \texttt{expectations}
+\item \texttt{emotion regulation}
+\item \texttt{mindfulness}
+\item \texttt{trauma}
+\item \texttt{sleep}
+\end{itemize}
+
+\subsection*{Framework Seeds}
+\begin{itemize}
+\item \texttt{fear-avoidance model}
+\item \texttt{cognitive behavioral therapy}
+\item \texttt{acceptance and commitment therapy}
+\item \texttt{illness perception framework}
+\item \texttt{operant learning}
+\item \texttt{social cognitive theory}
+\item \texttt{self-regulation}
+\end{itemize}
+
+\section*{Prompt Specification}
+The implemented system prompt is a strict JSON instruction with the following functional specification:
+\begin{itemize}
+\item Cluster psychological chronic pain review concepts into higher-order families.
+\item Note likely theoretical frameworks.
+\item Return strict JSON with a top-level \field{clusters} list.
+\item Each cluster must contain \field{family}, \field{members}, and \field{possible_frameworks}.
+\end{itemize}
+
+\section*{Expected Output Structure}
+\begin{description}
+\item[\field{clusters}] Top-level list of normalized concept clusters.
+\item[\field{family}] Higher-order concept family label assigned to the cluster.
+\item[\field{members}] The original concept strings grouped into that family.
+\item[\field{possible_frameworks}] Likely theoretical or therapeutic frameworks associated with the family.
+\end{description}
+
+\section*{Analytic Role}
+\begin{itemize}
+\item Preserves the original detected concepts while improving comparability across records.
+\item Supports synthesis questions about which psychological concepts and frameworks dominate the review corpus.
+\item Allows concept families to be interpreted at a higher level than raw string matching alone.
+\end{itemize}
+
+\section*{Interpretive Note}
+This scheme is distinct from the Stage 2 and Stage 3 codebooks because it does not classify whole records. Instead, it normalizes the concept vocabulary itself and therefore functions as a second-order coding scheme over concept strings extracted from the review texts.
+
+\end{document}
+

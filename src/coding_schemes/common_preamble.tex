@@ -1,0 +1,29 @@
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=black,
+  urlcolor=blue!50!black,
+  pdftitle={Coding Scheme Dossier}
+}
+\setlist[itemize]{leftmargin=1.6em}
+\setlist[description]{style=nextline,leftmargin=3.5cm,labelsep=0.6em}
+\newcommand{\field}[1]{\nolinkurl{#1}}
+\newcommand{\filepath}[1]{\nolinkurl{#1}}
+\newcommand{\schemeheader}[3]{
+  \begin{center}
+    {\LARGE \textbf{#1}}\\[0.5em]
+    {\large #2}\\[0.4em]
+    {\normalsize \textit{#3}}
+  \end{center}
+  \vspace{0.8em}
+}
+

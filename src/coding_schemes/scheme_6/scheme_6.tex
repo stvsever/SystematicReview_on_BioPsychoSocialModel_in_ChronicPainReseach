@@ -1,0 +1,107 @@
+\documentclass[11pt]{article}
+\input{../common_preamble.tex}
+
+\begin{document}
+\schemeheader
+  {Scheme 6}
+  {BPS Ontology and Semantic Loading Benchmark Scheme}
+  {Ontology prompts for benchmark-relative semantic quantification}
+
+\section*{Purpose}
+This scheme supplies the ontology scaffold used to quantify semantic emphasis across biological, psychological, and social axes. It is not a manual adjudication form, but it is an operational text-classification framework because it standardizes the domain and subdomain prompts against which review records are embedded and compared.
+
+\section*{Operational Status}
+\begin{itemize}
+\item Workflow position: semantic loading and synthesis stage after Stage 2 coding.
+\item Operational mode: ontology-prompted embedding benchmark, with OpenRouter embeddings when available and TF-IDF fallback otherwise.
+\item Canonical implementation basis: \filepath{src/bps_review/reporting/semantic_loading.py} and the archived ontology terms JSON.
+\end{itemize}
+
+\section*{Canonical Source Paths}
+\begin{itemize}
+\item \filepath{src/bps_review/reporting/semantic_loading.py}
+\item \filepath{src/vector_db/semantic_loading/ontology/ontology_terms.json}
+\item \filepath{src/vector_db/semantic_loading/analysis/domain_loading_summary.csv}
+\item \filepath{src/vector_db/semantic_loading/analysis/subdomain_loading_summary.csv}
+\end{itemize}
+
+\section*{Record Text Used for Scoring}
+Each review record is composed into a semantic analysis string with the following sections: title, abstract, and extracted objective text. The ontology scheme then compares that composed record text against the benchmark prompts below.
+
+\section*{Prompt Templates}
+\begin{description}
+\item[\field{domain prompt}] \texttt{\{domain\} chronic pain ontology. \{joined subdomains\}.}
+\item[\field{subdomain prompt}] \texttt{\{domain\} chronic pain subdomain. \{term\}.}
+\end{description}
+
+\section*{Domain Order}
+The benchmark axes are always ordered as \texttt{biological}, \texttt{psychological}, and \texttt{social}.
+
+\section*{Ontology Content}
+\subsection*{Biological Subdomains}
+\begin{itemize}
+\item Central Sensitization and Neuroplasticity
+\item Musculoskeletal and Structural Pathology
+\item Pharmacological and Biomedical Treatment
+\item Sleep Disruption and Circadian Dysregulation
+\item Immune Inflammatory and Neuroinflammatory Processes
+\item Genetic Epigenetic and Biological Vulnerability
+\item Neuroimaging Brain Structure and Function
+\item Nociceptive Transmission and Pain Pathways
+\item Physical Function Mobility and Deconditioning
+\item Metabolic Nutritional and Hormonal Factors
+\end{itemize}
+
+\subsection*{Psychological Subdomains}
+\begin{itemize}
+\item Catastrophizing and Negative Cognitive Appraisal
+\item Fear Avoidance and Pain Related Fear
+\item Depression Emotional Distress and Affect
+\item Anxiety and Psychological Reactivity
+\item Self Efficacy Control Beliefs and Perceived Mastery
+\item Acceptance Psychological Flexibility and Mindfulness
+\item Pain Coping Strategies and Adjustment
+\item Attention Vigilance and Pain Processing
+\item Illness Beliefs Pain Representations and Meaning
+\item Cognitive Behavioral and Psychotherapeutic Approaches
+\item Third Wave Therapies ACT and Contextual Approaches
+\item Resilience Positive Psychology and Post Traumatic Growth
+\item Identity Self Concept and Chronic Pain Biography
+\item Trauma Adverse Childhood and Life Events
+\item Personality Psychological Traits and Individual Differences
+\item Cognitive Function Executive Processes and Brain Health
+\item Motivational Processes Goal Pursuit and Engagement
+\item Healthcare Seeking Treatment Adherence and Engagement
+\item Emotional Regulation and Pain Affect Processing
+\item Mental Health Comorbidity and Psychological Wellbeing
+\end{itemize}
+
+\subsection*{Social Subdomains}
+\begin{itemize}
+\item Social Support Network and Interpersonal Resources
+\item Work Disability Occupational Function and Productivity
+\item Family Caregiver and Household Dynamics
+\item Socioeconomic Status and Health Inequity
+\item Healthcare Access Navigation and System Factors
+\item Cultural Ethnic and Demographic Context
+\item Community Participation and Social Role Functioning
+\item Legal Compensation and Medicolegal Systems
+\item Health Literacy Education and Patient Empowerment
+\item Stigma Social Isolation and Exclusion
+\item Return to Work Vocational Rehabilitation and Employment
+\item Social Determinants of Pain and Environment
+\end{itemize}
+
+\section*{Outputs Produced from This Scheme}
+\begin{itemize}
+\item Record-level domain loadings.
+\item Record-level subdomain loadings.
+\item Domain summary and subdomain summary tables.
+\item Pairwise loading analyses.
+\item Dominance-by-review-type summaries.
+\end{itemize}
+
+\section*{Interpretive Note}
+This dossier is included because the project uses ontology prompts as a standardized semantic coding scaffold. It should be understood as an analytic coding scheme rather than a human extraction codebook.
+
+\end{document}

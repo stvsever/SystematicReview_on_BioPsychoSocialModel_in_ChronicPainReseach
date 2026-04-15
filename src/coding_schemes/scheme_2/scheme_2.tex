@@ -1,0 +1,106 @@
+\documentclass[11pt]{article}
+\input{../common_preamble.tex}
+
+\begin{document}
+\schemeheader
+  {Scheme 2}
+  {Stage 2 Abstract-Level Structured Coding Scheme}
+  {Prompt-guided abstract coding with deterministic repair and rule-based fallback}
+
+\section*{Purpose}
+This scheme standardizes abstract-level extraction for all eligible chronic pain reviews. It is the main corpus-wide coding layer used to describe review characteristics, classify the function of biopsychosocial language, identify the presence of biological, psychological, and social content, flag conceptual problems, and generate a provisional biopsychosocial typology for downstream synthesis.
+
+\section*{Operational Status}
+\begin{itemize}
+\item Workflow position: Stage 2 abstract coding after Stage 1 eligibility screening.
+\item Operational mode: structured LLM-first coding with archived JSON batch outputs, deterministic vocabulary normalization, and rule-based fallback when model output is incomplete or unavailable.
+\item Canonical implementation basis: actual Stage 2 output schema in \filepath{src/review_stages/04_extraction/outputs/stage2_abstract_coding.csv}.
+\end{itemize}
+
+\section*{Canonical Source Paths}
+\begin{itemize}
+\item \filepath{src/protocol/codebooks/stage2_codebook.md}
+\item \filepath{src/review_stages/04_extraction/codebooks/stage2_codebook.csv}
+\item \filepath{src/bps_review/extraction/stage2.py}
+\item \filepath{src/bps_review/extraction/llm_stage2.py}
+\item \filepath{src/review_stages/04_extraction/outputs/stage2_abstract_coding.csv}
+\item \filepath{src/review_stages/04_extraction/outputs/stage2_llm_structured_coding.csv}
+\item \filepath{src/review_stages/04_extraction/outputs/llm_stage2_structured_batches.jsonl}
+\end{itemize}
+
+\section*{Carried-Through Metadata Fields}
+\begin{description}
+\item[\field{record_id}] Internal record identifier.
+\item[\field{database}] Source database.
+\item[\field{pmid} / \field{pmcid} / \field{doi}] External identifiers when available.
+\item[\field{title} / \field{abstract}] Primary text used for coding.
+\item[\field{year} / \field{journal} / \field{authors} / \field{country_contact_author}] Descriptive metadata retained for synthesis.
+\item[\field{publication_types}] PubMed or source publication-type metadata.
+\item[\field{objective_text}] Objective sentence or excerpt extracted from the abstract.
+\item[\field{screening_status} / \field{screening_reason}] Stage 1 status inherited into the Stage 2 dataset.
+\end{description}
+
+\section*{Coded Fields and Controlled Values}
+\begin{description}
+\item[\field{review_type}] \texttt{systematic review}; \texttt{meta-analysis}; \texttt{network meta-analysis}; \texttt{umbrella review}; \texttt{scoping or mapping review}; \texttt{rapid review}; \texttt{realist review}; \texttt{integrative review}; \texttt{narrative or expert review}; \texttt{other evidence synthesis}; \texttt{unclear}.
+\item[\field{objective_category}] \texttt{conceptual}; \texttt{clinical}; \texttt{methodological}; \texttt{epidemiological}; \texttt{mixed}; \texttt{unclear}.
+\item[\field{objective_category_source}] Indicates whether the objective classification came from the structured LLM, a repaired LLM batch, or the deterministic fallback.
+\item[\field{icd11_pain_category}] \texttt{chronic secondary musculoskeletal pain}; \texttt{chronic neuropathic pain}; \texttt{chronic cancer-related pain}; \texttt{chronic postsurgical or posttraumatic pain}; \texttt{chronic secondary headache or orofacial pain}; \texttt{chronic secondary visceral pain}; \texttt{chronic primary pain}; \texttt{mixed or unspecified chronic pain}; \texttt{unclear}.
+\item[\field{musculoskeletal_flag}] \texttt{yes}; \texttt{no}; \texttt{unclear}.
+\item[\field{bps_mention_location}] \texttt{title only}; \texttt{abstract only}; \texttt{title and abstract}; \texttt{unclear}.
+\item[\field{bps_function}] \texttt{explanatory framework}; \texttt{intervention rationale}; \texttt{organizing principle}; \texttt{justification}; \texttt{background framing}; \texttt{conclusion}; \texttt{policy/practice implication}; \texttt{rhetorical label}; \texttt{unclear}.
+\item[\field{bio_mentioned} / \field{psych_mentioned} / \field{social_mentioned}] \texttt{yes} or \texttt{no}.
+\item[\field{quality_assessment_reported}] \texttt{yes}; \texttt{no}; \texttt{unclear}.
+\item[\field{psychological_concepts_detected}] Normalized list of psychological concepts extracted from title and abstract.
+\item[\field{theoretical_frameworks_detected}] Normalized list of named frameworks or model labels.
+\item[\field{conceptual_problem_flags}] \field{vague_definition}; \field{tokenistic_bps}; \field{missing_social}; \field{missing_biology}; \field{mechanistic_absence}; \field{construct_overlap}; \field{parallel_listing_without_integration}; \field{none}.
+\item[\field{provisional_typology}] \texttt{potential integrative signal}; \texttt{multifactorial signal}; \texttt{pseudo-bps or partial signal}; \texttt{rhetorical label signal}.
+\item[\field{stage3_candidate}] \texttt{yes} or \texttt{no}.
+\item[\field{stage3_priority}] \texttt{high}; \texttt{medium}; \texttt{low}.
+\item[\field{coding_rationale}] One-sentence rationale supporting the coding bundle.
+\item[\field{coding_method}] Operational provenance of the row, for example \field{llm_structured}, \field{llm_batch_fallback}, or \field{rule_based_fallback}.
+\item[\field{llm_model}] Model identifier when LLM coding was used.
+\end{description}
+
+\section*{Prompt Rules Used in the Structured LLM Stage}
+\begin{itemize}
+\item Code only from title, abstract, publication types, and journal metadata.
+\item Do not infer content that is absent from the record.
+\item Do not treat the single lexical token \texttt{biopsychosocial} as proof that biological, psychological, and social domains are all substantively present.
+\item Use \texttt{explanatory framework} only when the review explicitly treats BPS as a model or framework explaining pain or pain-related disability.
+\item Use \texttt{intervention rationale} when BPS language mainly justifies multimodal or interdisciplinary treatment.
+\item Use \texttt{organizing principle} when BPS language structures the scope or categories without specifying integration mechanisms.
+\item Use \texttt{rhetorical label} when BPS is invoked ceremonially, aspirationally, or symbolically without substantive analytic work.
+\item Set \field{stage3_candidate} to \texttt{yes} for musculoskeletal reviews and mixed or unspecified chronic pain reviews where musculoskeletal relevance cannot be ruled out.
+\item Use \texttt{potential integrative signal} only when all three core domains are substantively present and the abstract signals cross-domain explanation or organization beyond simple listing.
+\item Use \texttt{multifactorial signal} when all three domains are substantively present but mainly parallel.
+\item Use \texttt{pseudo-bps or partial signal} when one or more core domains are thin or absent despite BPS language.
+\item Use \texttt{rhetorical label signal} when the BPS label is mainly symbolic or confined to framing or conclusion.
+\item Return \field{conceptual_problem_flags} as \texttt{none} only when no inferable conceptual problem is present.
+\end{itemize}
+
+\section*{Deterministic Repair and Fallback Logic}
+\begin{itemize}
+\item Missing or malformed model responses are repaired against the fixed vocabularies listed above.
+\item Aliases such as \texttt{scoping review} or \texttt{narrative review} are normalized to the implemented labels.
+\item \field{stage3_candidate} is forced to \texttt{yes} whenever \field{musculoskeletal_flag} is \texttt{yes} or \texttt{unclear}.
+\item Conceptual problem flags are post-derived from typology, BPS function, and missing domains. Rhetorical usage triggers \field{tokenistic_bps} and \field{vague_definition}; parallel non-mechanistic usage triggers \field{parallel_listing_without_integration} and \field{mechanistic_absence}; absent biological or social content triggers \field{missing_biology} or \field{missing_social}.
+\item When the LLM stage fails, the rule-based fallback still generates review type, objective category, ICD-11 category, BPS function, domain mention flags, concept detections, and provisional Stage 3 priority.
+\end{itemize}
+
+\section*{Implementation Notes and Documented Divergences}
+\begin{itemize}
+\item The prose codebook lists \texttt{treatment-oriented} as an objective class, but the implemented structured prompt and output schema do not currently use that label.
+\item The CSV codebook historically contains \field{spiritual_existential_mentioned} and \field{lifestyle_mentioned}; those fields are not present in the current Stage 2 output file and therefore are not treated as canonical in this dossier.
+\item The prose codebook and the executable code both emphasize that BPS language alone is insufficient evidence of true triadic coverage.
+\end{itemize}
+
+\section*{Primary Outputs Using This Scheme}
+\begin{itemize}
+\item \filepath{src/review_stages/04_extraction/outputs/stage2_abstract_coding.csv}
+\item \filepath{src/review_stages/04_extraction/forms/stage2_double_code_subset.csv}
+\item \filepath{src/review_stages/04_extraction/outputs/stage2_objective_llm_assist.csv}
+\item \filepath{src/review_stages/04_extraction/outputs/llm_objective_pilot.json}
+\end{itemize}
+
+\end{document}

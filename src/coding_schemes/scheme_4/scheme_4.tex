@@ -1,0 +1,81 @@
+\documentclass[11pt]{article}
+\input{../common_preamble.tex}
+
+\begin{document}
+\schemeheader
+  {Scheme 4}
+  {Stage 3 Retrieval and Manual Relevance Triage Scheme}
+  {Full-text availability, manual retrieval need, and adjudication checklist}
+
+\section*{Purpose}
+This scheme governs the transition from Stage 2 abstract coding to Stage 3 full-text work. It standardizes which candidate reviews need manual retrieval, which records require manual relevance adjudication, and how retrieval status, risk signals, and reviewer decisions are recorded before deep coding begins.
+
+\section*{Operational Status}
+\begin{itemize}
+\item Workflow position: bridge between Stage 2 coding and Stage 3 full-text coding.
+\item Operational mode: automated candidate manifest plus human checklist completion.
+\item Canonical implementation basis: manifest-generation logic in \filepath{src/bps_review/extraction/stage3_prep.py} and the generated manual relevance checklist.
+\end{itemize}
+
+\section*{Canonical Source Paths}
+\begin{itemize}
+\item \filepath{src/bps_review/extraction/stage3_prep.py}
+\item \filepath{src/review_stages/04_extraction/forms/stage3_manual_relevance_checklist.csv}
+\item \filepath{src/review_stages/04_extraction/outputs/stage3_candidate_manifest.csv}
+\item \filepath{src/review_stages/04_extraction/outputs/stage3_manual_fulltext_queue.csv}
+\item \filepath{src/review_stages/04_extraction/outputs/stage3_retrieval_validation.csv}
+\end{itemize}
+
+\section*{Manifest Fields}
+\begin{description}
+\item[\field{fulltext_status}] Operational retrieval status of the candidate review.
+\item[\field{retrieval_source}] Source of the PMCID or full-text link, such as existing metadata, PubMed elink, or Europe PMC.
+\item[\field{fulltext_word_count}] Word count of cached text, used to detect low-content full texts.
+\item[\field{manual_retrieval_needed}] \texttt{yes} or \texttt{no}.
+\item[\field{manual_relevance_priority}] \texttt{high}; \texttt{medium}; \texttt{low}.
+\item[\field{manual_relevance_flags}] Pipe-delimited signal list describing why adjudication attention is needed.
+\item[\field{osf_manual_adjudication_required}] Currently set to \texttt{yes} for the checklist workflow.
+\item[\field{cached_xml_path} / \field{cached_text_path}] Relative cache paths for machine-fetched PMC files.
+\item[\field{pubmed_url}] Direct URL to the source record when a PMID is available.
+\end{description}
+
+\section*{Implemented Retrieval Status Categories}
+\begin{description}
+\item[\field{manual_retrieval_required}] No machine-available full text was secured; human retrieval is needed.
+\item[\field{pmc_open_available_not_cached}] A PMCID is available, but the file was not yet cached.
+\item[\field{pmc_fulltext_cached}] A PMC full text is already cached locally.
+\item[\field{pmc_fulltext_fetched}] A PMC full text was retrieved during the current run.
+\item[\field{pmc_linked_fetch_failed}] A PMCID link existed, but retrieval or XML parsing failed.
+\item[\field{pmc_fulltext_low_content_manual_check}] The PMC text was fetched, but the file appears too short and requires manual inspection.
+\end{description}
+
+\section*{Manual Relevance Signal Logic}
+\begin{itemize}
+\item \field{withdrawn_or_retracted_signal}: assigned when the title or abstract indicates a withdrawn or retracted record.
+\item \field{pain_focus_not_explicit}: assigned when pain is not explicit in the title or abstract.
+\item \field{chronicity_not_explicit}: assigned when chronic, persistent, or long-term framing is absent.
+\item \field{review_design_unclear}: assigned when review design is missing or too vague.
+\item Priority is \texttt{high} when withdrawal or missing pain focus is detected, \texttt{medium} when other concern flags exist, and \texttt{low} otherwise.
+\item If manual retrieval is required and the signal priority is otherwise low, the implementation elevates the priority to \texttt{medium}.
+\end{itemize}
+
+\section*{Reviewer Checklist Fields}
+\begin{description}
+\item[\field{reviewer_decision}] Human reviewer decision after checking the candidate.
+\item[\field{reviewer_notes}] Notes supporting the reviewer decision.
+\item[\field{adjudication_decision}] Final adjudicated status after disagreement resolution.
+\item[\field{adjudication_notes}] Adjudication rationale.
+\end{description}
+
+\section*{Why This Is a Distinct Coding Scheme}
+This is not merely a logistics file. It is a standardized adjudication framework for deciding whether the review can enter Stage 3 full-text coding, whether the text retrieved is adequate, and how potentially problematic or ambiguous candidate records are escalated for human judgment.
+
+\section*{Primary Outputs Using This Scheme}
+\begin{itemize}
+\item \filepath{src/review_stages/04_extraction/outputs/stage3_candidate_manifest.csv}
+\item \filepath{src/review_stages/04_extraction/forms/stage3_manual_relevance_checklist.csv}
+\item \filepath{src/review_stages/04_extraction/outputs/stage3_manual_fulltext_queue.csv}
+\item \filepath{src/review_stages/04_extraction/outputs/stage3_retrieval_validation.csv}
+\end{itemize}
+
+\end{document}

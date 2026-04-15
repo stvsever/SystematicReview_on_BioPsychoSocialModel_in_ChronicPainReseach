@@ -1,0 +1,91 @@
+\documentclass[11pt]{article}
+\input{../common_preamble.tex}
+
+\begin{document}
+\schemeheader
+  {Scheme 3}
+  {Stage 3 Full-Text Deep Coding Scheme}
+  {Musculoskeletal-focused full-text adjudication and interpretive coding}
+
+\section*{Purpose}
+This scheme is the full-text deep coding framework used for Stage 3 candidate reviews, especially musculoskeletal chronic pain reviews. It captures conceptual depth that cannot be resolved reliably at the abstract level: coverage of each BPS domain, pairwise and triadic integration quality, biopsychosocial typology, psychological concepts, theoretical frameworks, conceptual problems, and evidential quotations.
+
+\section*{Operational Status}
+\begin{itemize}
+\item Workflow position: Stage 3 full-text coding after candidate identification and retrieval triage.
+\item Operational mode: human-coded template with pilot and reliability subsamples; protocol allows AI assistance for concept mapping, but final adjudication remains human.
+\item Canonical implementation basis: current full-text template and prose codebook.
+\end{itemize}
+
+\section*{Canonical Source Paths}
+\begin{itemize}
+\item \filepath{src/protocol/codebooks/stage3_codebook.md}
+\item \filepath{src/review_stages/04_extraction/codebooks/stage3_codebook.csv}
+\item \filepath{src/bps_review/extraction/stage3_prep.py}
+\item \filepath{src/review_stages/04_extraction/forms/stage3_fulltext_coding_template.csv}
+\item \filepath{src/review_stages/04_extraction/forms/stage3_pilot_sample.csv}
+\item \filepath{src/review_stages/04_extraction/forms/stage3_reliability_sample.csv}
+\end{itemize}
+
+\section*{Core Fields and Controlled Values}
+\begin{description}
+\item[\field{record_id}] Internal record identifier.
+\item[\field{full_text_available}] \texttt{yes}; \texttt{no}; \texttt{partial}.
+\item[\field{pain_condition_detail}] Free-text specification of the pain condition studied in the review.
+\item[\field{domain_coverage_bio}] \texttt{elaborated}; \texttt{mentioned}; \texttt{minimal}; \texttt{absent}.
+\item[\field{domain_coverage_psych}] \texttt{elaborated}; \texttt{mentioned}; \texttt{minimal}; \texttt{absent}.
+\item[\field{domain_coverage_social}] \texttt{elaborated}; \texttt{mentioned}; \texttt{minimal}; \texttt{absent}.
+\item[\field{integration_bio_psych}] \texttt{mechanistic}; \texttt{directional}; \texttt{descriptive}; \texttt{mentioned}; \texttt{none}.
+\item[\field{integration_psych_social}] \texttt{mechanistic}; \texttt{directional}; \texttt{descriptive}; \texttt{mentioned}; \texttt{none}.
+\item[\field{integration_bio_social}] \texttt{mechanistic}; \texttt{directional}; \texttt{descriptive}; \texttt{mentioned}; \texttt{none}.
+\item[\field{integration_triadic}] \texttt{mechanistic}; \texttt{descriptive}; \texttt{partial}; \texttt{none}.
+\item[\field{integration_mechanism_summary}] Concise free-text summary of proposed cross-domain pathways.
+\item[\field{overall_balance}] \texttt{balanced}; \texttt{psych-dominant}; \texttt{bio-dominant}; \texttt{social-dominant}; \texttt{dyadic}; \texttt{unclear}.
+\item[\field{bps_typology}] \field{true_integrative}; \field{multifactorial}; \field{pseudo_bps}; \field{rhetorical_bps}; \field{narrow_despite_label}; \field{unclear}.
+\item[\field{concept_definitions_present}] \texttt{yes}; \texttt{partial}; \texttt{no}.
+\item[\field{psychological_concepts_fulltext}] Full-text concept list, normally normalized and semicolon-delimited.
+\item[\field{theoretical_frameworks_fulltext}] Full-text framework list, normally normalized and semicolon-delimited.
+\item[\field{conceptual_problems_fulltext}] Conceptual issues such as vague definitions, construct overlap, tokenistic BPS use, missing social analysis, missing biology, mechanistic absence, unclear boundaries, or other.
+\item[\field{integration_quotes_or_evidence}] Supporting quotations, section references, or evidential anchors from the full text.
+\item[\field{coder_id} / \field{coder_notes} / \field{adjudication_status}] Provenance and adjudication tracking fields.
+\end{description}
+
+\section*{Typology Interpretation Rules}
+\begin{description}
+\item[\field{true_integrative}] Explicit cross-domain causal or mechanistic interaction is central to the review's logic.
+\item[\field{multifactorial}] Multiple domains are covered meaningfully but mostly in parallel rather than as an integrated explanatory model.
+\item[\field{pseudo_bps}] BPS language is used, but one or more core domains are thin, absent, or tokenistic.
+\item[\field{rhetorical_bps}] BPS is used mainly as framing, justification, or rhetorical positioning without substantive analytic integration.
+\item[\field{narrow_despite_label}] The review claims a BPS framing, but substantive scope is essentially single-domain or severely restricted.
+\end{description}
+
+\section*{Coding Expectations}
+\begin{itemize}
+\item Domain coverage is coded at the level of substantive treatment, not keyword presence alone.
+\item Pairwise integration codes should reflect whether the review articulates mechanisms, directional influences, descriptive links, or only passing mention.
+\item Triadic integration should be reserved for genuinely three-domain reasoning rather than serial mention of separate domains.
+\item The scheme is designed to combine quantitative tallying with qualitative excerpting so that research questions on both distribution and interpretation can be answered from the same coding file.
+\end{itemize}
+
+\section*{Reliability Architecture}
+\begin{itemize}
+\item Pilot sample: up to 5 records generated through \filepath{src/bps_review/extraction/stage3_prep.py}.
+\item Reliability sample: roughly 20\% of candidates, capped operationally in the form-generation logic.
+\item Reliability fields include independent reviewer ratings for domain coverage, triadic integration, BPS typology, and free-text notes, followed by adjudicated values.
+\end{itemize}
+
+\section*{Implementation Notes and Documented Divergences}
+\begin{itemize}
+\item The prose Stage 3 codebook includes \texttt{partial} and \texttt{mentioned} intermediary integration values more explicitly than the CSV codebook; this dossier follows the prose codebook plus the actual form field names because that is the richer operational specification.
+\item The CSV codebook uses shorter names such as \field{bio_coverage}; the current generated template uses \field{domain_coverage_bio}. The template naming is treated here as canonical because it is the actual working form.
+\end{itemize}
+
+\section*{Primary Outputs and Forms Using This Scheme}
+\begin{itemize}
+\item \filepath{src/review_stages/04_extraction/forms/stage3_fulltext_coding_template.csv}
+\item \filepath{src/review_stages/04_extraction/forms/stage3_pilot_sample.csv}
+\item \filepath{src/review_stages/04_extraction/forms/stage3_reliability_sample.csv}
+\item \filepath{src/review_stages/04_extraction/outputs/stage3_candidate_manifest.csv}
+\end{itemize}
+
+\end{document}
